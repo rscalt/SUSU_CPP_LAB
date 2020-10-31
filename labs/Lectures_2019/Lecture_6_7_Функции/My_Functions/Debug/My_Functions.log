@@ -1,0 +1,11 @@
+﻿  My_main.cpp
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_6_7_функции\my_functions\function.h(12): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_6_7_функции\my_functions\function.h(54): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_6_7_функции\my_functions\function.h(201): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_6_7_функции\my_functions\my_main.cpp(20): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_6_7_функции\my_functions\my_main.cpp(64): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_6_7_функции\my_functions\my_main.cpp(92): warning C4305: аргумент: усечение из "int" в "char"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_6_7_функции\my_functions\my_main.cpp(92): warning C4309: аргумент: усечение константного значения
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_6_7_функции\my_functions\my_main.cpp(95): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\conio.h(452): note:  см. объявление "getch"
+  My_Functions.vcxproj -> P:\PREP\E_KONOVA\Основы_программирования_ФГОС3++\Lectures_2019\Lecture_6_7_Функции\My_Functions\Debug\My_Functions.exe

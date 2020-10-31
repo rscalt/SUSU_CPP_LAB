@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Primer_Files">
+</Property><Property Name="Файл решения" Value="E:\ЭиУ-I\Lectures_2012\Lecture_9\Primer_Files\Primer_Files.sln">
+</Property><Property Name="Date" Value="26 мая 2012 г.">
+</Property><Property Name="Time" Value="11:42">
+</Property></Properties><Event ErrorLevel="0" Project="Primer_Files" Source="Primer_Files.vcproj" Description="Converting project file 'E:\ЭиУ-I\Lectures_2012\Lecture_9\Primer_Files\Primer_Files.vcproj'.">
+</Event><Event ErrorLevel="1" Project="Primer_Files" Source="Primer_Files.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="Primer_Files" Source="Primer_Files.vcproj" Description="Done converting to new project file 'E:\ЭиУ-I\Lectures_2012\Lecture_9\Primer_Files\Primer_Files.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="Primer_Files" Source="Primer_Files.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="Primer_Files.sln" Description="Преобразование решения успешно завершено">
+</Event><Event ErrorLevel="3" Project="" Source="Primer_Files.sln" Description="Converted">
+</Event></UpgradeLog>

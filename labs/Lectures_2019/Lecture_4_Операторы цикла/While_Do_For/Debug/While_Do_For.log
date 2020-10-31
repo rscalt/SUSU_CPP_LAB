@@ -1,0 +1,17 @@
+﻿  Cycle.cpp
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_4_операторы цикла\while_do_for\table.h(43): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_4_операторы цикла\while_do_for\table.h(65): warning C4305: инициализация: усечение из "double" в "float"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_4_операторы цикла\while_do_for\cycle.cpp(75): warning C4305: *=: усечение из "double" в "float"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_4_операторы цикла\while_do_for\cycle.cpp(92): warning C4305: +=: усечение из "double" в "float"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_4_операторы цикла\while_do_for\cycle.cpp(95): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_4_операторы цикла\while_do_for\cycle.cpp(26): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1272): note:  см. объявление "scanf"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_4_операторы цикла\while_do_for\cycle.cpp(38): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1272): note:  см. объявление "scanf"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_4_операторы цикла\while_do_for\cycle.cpp(68): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1272): note:  см. объявление "scanf"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_4_операторы цикла\while_do_for\cycle.cpp(82): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1272): note:  см. объявление "scanf"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_4_операторы цикла\while_do_for\cycle.cpp(99): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\conio.h(452): note:  см. объявление "getch"
+  While_Do_For.vcxproj -> P:\PREP\E_KONOVA\Основы_программирования_ФГОС3++\Lectures_2019\Lecture_4_Операторы цикла\While_Do_For\Debug\While_Do_For.exe

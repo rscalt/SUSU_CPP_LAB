@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C++ Express 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Primer_Operators_Terms", "Primer_Operators_Terms.vcproj", "{F62AD7CC-1A8B-4FDA-A190-FC88A15E84B0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F62AD7CC-1A8B-4FDA-A190-FC88A15E84B0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F62AD7CC-1A8B-4FDA-A190-FC88A15E84B0}.Debug|Win32.Build.0 = Debug|Win32
+		{F62AD7CC-1A8B-4FDA-A190-FC88A15E84B0}.Release|Win32.ActiveCfg = Release|Win32
+		{F62AD7CC-1A8B-4FDA-A190-FC88A15E84B0}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

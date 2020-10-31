@@ -1,0 +1,5 @@
+﻿  One.cpp
+c:\программирование на яву\lectures_2013\lecture_1\primer_1\one.cpp(53): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\программирование на яву\lectures_2013\lecture_1\primer_1\one.cpp(54): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\программирование на яву\lectures_2013\lecture_1\primer_1\one.cpp(55): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  Primer_1.vcxproj -> C:\Программирование на ЯВУ\Lectures_2013\Lecture_1\Primer_1\Debug\Primer_1.exe

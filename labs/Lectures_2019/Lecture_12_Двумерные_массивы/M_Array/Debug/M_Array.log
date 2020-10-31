@@ -1,0 +1,7 @@
+﻿  M_Array.cpp
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_12_двумерные_массивы\m_array\m_array.h(108): warning C4101: j: неиспользованная локальная переменная
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_12_двумерные_массивы\m_array\m_array.cpp(8): warning C4101: j: неиспользованная локальная переменная
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_12_двумерные_массивы\m_array\m_array.cpp(8): warning C4101: i: неиспользованная локальная переменная
+M_Array.obj : warning LNK4075: не учитывается "/EDITANDCONTINUE" из-за спецификации "/SAFESEH"
+  M_Array.vcxproj -> C:\Основы_программирования_ФГОС_3++\Lectures_2019\Lecture_12_Двумерные_массивы\M_Array\Debug\M_Array.exe
+  M_Array.vcxproj -> C:\Основы_программирования_ФГОС_3++\Lectures_2019\Lecture_12_Двумерные_массивы\M_Array\Debug\M_Array.pdb (Full PDB)

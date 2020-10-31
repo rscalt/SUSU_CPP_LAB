@@ -1,0 +1,7 @@
+﻿  Array.cpp
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_8_массивы\array_primer\array.h(15): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_8_массивы\array_primer\array.cpp(38): warning C4838: преобразование из "double" в "float" требует сужающего преобразования
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_8_массивы\array_primer\array.cpp(38): warning C4305: инициализация: усечение из "double" в "float"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_8_массивы\array_primer\array.cpp(72): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\conio.h(452): note:  см. объявление "getch"
+  Array_VS.vcxproj -> P:\PREP\E_KONOVA\Основы_программирования_ФГОС3++\Lectures_2019\Lecture_8_Массивы\Array_Primer\Debug\Array_VS.exe

@@ -1,0 +1,4 @@
+﻿  Strings.cpp
+c:\программирование на яву\lectures_2013\lecture_8\primers_string\strings.h(67): warning C4101: str_5: неиспользованная локальная переменная
+c:\программирование на яву\lectures_2013\lecture_8\primers_string\strings.h(62): warning C4101: str_1: неиспользованная локальная переменная
+  Primers_String.vcxproj -> C:\Программирование на ЯВУ\Lectures_2013\Lecture_8\Primers_String\Debug\Primers_String.exe

@@ -1,0 +1,10 @@
+﻿  Pointer.cpp
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_9_указатели\pointer_1\pointer.h(6): warning C4305: инициализация: усечение из "double" к "float"
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_9_указатели\pointer_1\pointer2.h(43): warning C4101: m2: неиспользованная локальная переменная
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_9_указатели\pointer_1\pointer2.h(42): warning C4101: m1: неиспользованная локальная переменная
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_9_указатели\pointer_1\pointer2.h(40): warning C4101: f: неиспользованная локальная переменная
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_9_указатели\pointer_1\pointer2.h(39): warning C4101: i: неиспользованная локальная переменная
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_9_указатели\pointer_1\pointer2.h(38): warning C4101: l: неиспользованная локальная переменная
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_9_указатели\pointer_1\pointer2.h(41): warning C4101: d: неиспользованная локальная переменная
+  Pointer_1.vcxproj -> C:\Основы_программирования_ФГОС_3++\Lectures_2019\Lecture_9_Указатели\Pointer_1\Debug\Pointer_1.exe
+  Pointer_1.vcxproj -> C:\Основы_программирования_ФГОС_3++\Lectures_2019\Lecture_9_Указатели\Pointer_1\Debug\Pointer_1.pdb (Full PDB)

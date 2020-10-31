@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Type_Struct_">
+</Property><Property Name="Файл решения" Value="E:\ЭиУ-I\Lectures_2012\Lecture_Struct\Type_Struct_\Type_Struct_.sln">
+</Property><Property Name="Date" Value="2 июля 2012 г.">
+</Property><Property Name="Time" Value="10:07">
+</Property></Properties><Event ErrorLevel="0" Project="Type_Struct_" Source="Type_Struct_.vcproj" Description="Converting project file 'E:\ЭиУ-I\Lectures_2012\Lecture_Struct\Type_Struct_\Type_Struct_.vcproj'.">
+</Event><Event ErrorLevel="1" Project="Type_Struct_" Source="Type_Struct_.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="Type_Struct_" Source="Type_Struct_.vcproj" Description="Done converting to new project file 'E:\ЭиУ-I\Lectures_2012\Lecture_Struct\Type_Struct_\Type_Struct_.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="Type_Struct_" Source="Type_Struct_.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="Type_Struct_.sln" Description="Преобразование решения успешно завершено">
+</Event><Event ErrorLevel="3" Project="" Source="Type_Struct_.sln" Description="Converted">
+</Event></UpgradeLog>

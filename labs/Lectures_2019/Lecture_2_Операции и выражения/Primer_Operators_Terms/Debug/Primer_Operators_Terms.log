@@ -1,0 +1,6 @@
+﻿  Transform.cpp
+c:\программирование на яву\lectures_2013\lecture_2\primer_operators_terms\transform.cpp(9): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\программирование на яву\lectures_2013\lecture_2\primer_operators_terms\transform.cpp(11): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+c:\программирование на яву\lectures_2013\lecture_2\primer_operators_terms\transform.cpp(13): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\программирование на яву\lectures_2013\lecture_2\primer_operators_terms\transform.cpp(17): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  Primer_Operators_Terms.vcxproj -> C:\Программирование на ЯВУ\Lectures_2013\Lecture_2\Primer_Operators_Terms\Debug\Primer_Operators_Terms.exe

@@ -1,0 +1,4 @@
+﻿  Source.cpp
+c:\программирование на яву\lectures_2013\lecture_8\std_string\source.cpp(10): warning C4101: My_str: неиспользованная локальная переменная
+  Std_string.vcxproj -> C:\Программирование на ЯВУ\Lectures_2013\Lecture_8\Std_string\Debug\Std_string.exe
+  Std_string.vcxproj -> C:\Программирование на ЯВУ\Lectures_2013\Lecture_8\Std_string\Debug\Std_string.pdb (Partial PDB)

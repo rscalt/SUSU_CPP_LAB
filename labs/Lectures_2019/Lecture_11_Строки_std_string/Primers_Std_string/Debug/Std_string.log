@@ -1,0 +1,5 @@
+﻿  Source.cpp
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_11_строки_std_string\primers_std_string\my_string.h(46): warning C4018: <: несоответствие типов со знаком и без знака
+c:\основы_программирования_фгос_3++\lectures_2019\lecture_11_строки_std_string\primers_std_string\source.cpp(29): warning C4101: My_str: неиспользованная локальная переменная
+  Std_string.vcxproj -> C:\Основы_программирования_ФГОС_3++\Lectures_2019\Lecture_11_Строки_std_string\Primers_Std_string\Debug\Std_string.exe
+  Std_string.vcxproj -> C:\Основы_программирования_ФГОС_3++\Lectures_2019\Lecture_11_Строки_std_string\Primers_Std_string\Debug\Std_string.pdb (Partial PDB)

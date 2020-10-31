@@ -1,0 +1,31 @@
+﻿Построение начато 7/2/2012 10:46:56.
+Проект "E:\ЭиУ-I\Lectures_2012\Lecture_Struct\Type_Struct_\Type_Struct_.vcxproj" в узле 2 (целевые объекты build).
+InitializeBuildStatus:
+  Создание "Debug\Type_Struct_.unsuccessfulbuild", так как было задано "AlwaysCreate".
+ClCompile:
+  C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt My_main.cpp
+  My_main.cpp
+e:\эиу-i\lectures_2012\lecture_struct\type_struct_\header.h(105): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+e:\эиу-i\lectures_2012\lecture_struct\type_struct_\header.h(108): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+e:\эиу-i\lectures_2012\lecture_struct\type_struct_\header.h(113): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+e:\эиу-i\lectures_2012\lecture_struct\type_struct_\header.h(116): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+e:\эиу-i\lectures_2012\lecture_struct\type_struct_\my_main.cpp(10): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+e:\эиу-i\lectures_2012\lecture_struct\type_struct_\my_main.cpp(29): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files\microsoft visual studio 10.0\vc\include\stdio.h(304): см. объявление "scanf"
+Link:
+  C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\ЭиУ-I\Lectures_2012\Lecture_Struct\Type_Struct_\Debug\Type_Struct_.exe" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Type_Struct_.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"E:\ЭиУ-I\Lectures_2012\Lecture_Struct\Type_Struct_\Debug\Type_Struct_.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\ЭиУ-I\Lectures_2012\Lecture_Struct\Type_Struct_\Debug\Type_Struct_.lib" /MACHINE:X86 Debug\My_main.obj
+  Type_Struct_.vcxproj -> E:\ЭиУ-I\Lectures_2012\Lecture_Struct\Type_Struct_\Debug\Type_Struct_.exe
+Manifest:
+  C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"E:\ЭиУ-I\Lectures_2012\Lecture_Struct\Type_Struct_\Debug\Type_Struct_.exe;#1" /manifest Debug\Type_Struct_.exe.intermediate.manifest
+FinalizeBuildStatus:
+  Файл "Debug\Type_Struct_.unsuccessfulbuild" удаляется.
+  Обращение к "Debug\Type_Struct_.lastbuildstate".
+Построение проекта "E:\ЭиУ-I\Lectures_2012\Lecture_Struct\Type_Struct_\Type_Struct_.vcxproj" завершено (целевые объекты build).
+
+Построение успешно завершено.
+
+Затраченное время: 00:00:10.68

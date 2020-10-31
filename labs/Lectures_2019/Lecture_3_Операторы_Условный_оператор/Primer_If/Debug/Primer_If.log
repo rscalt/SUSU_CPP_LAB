@@ -1,0 +1,14 @@
+﻿  Main_Primers_4.cpp
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_3_операторы_условный_оператор\primer_if\primers_4.h(19): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1272): note:  см. объявление "scanf"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_3_операторы_условный_оператор\primer_if\primers_4.h(31): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\conio.h(452): note:  см. объявление "getch"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_3_операторы_условный_оператор\primer_if\primers_4.h(58): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1272): note:  см. объявление "scanf"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_3_операторы_условный_оператор\primer_if\primers_4.h(75): warning C4996: 'getch': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _getch. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\conio.h(452): note:  см. объявление "getch"
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_3_операторы_условный_оператор\primer_if\main_primers_4.cpp(19): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_3_операторы_условный_оператор\primer_if\main_primers_4.cpp(33): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+p:\prep\e_konova\основы_программирования_фгос3++\lectures_2019\lecture_3_операторы_условный_оператор\primer_if\main_primers_4.cpp(46): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+Main_Primers_4.obj : warning LNK4075: не учитывается "/EDITANDCONTINUE" из-за спецификации "/SAFESEH"
+  Primer_If.vcxproj -> P:\PREP\E_KONOVA\Основы_программирования_ФГОС3++\Lectures_2019\Lecture_3_Операторы_Условный_оператор\Primer_If\Debug\Primer_If.exe
