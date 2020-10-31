@@ -1,4 +1,2 @@
-.doc
-.docx
-.pdf
-*.docx
+*.pdf
+*.doc*
