@@ -5,7 +5,7 @@ using namespace std;
 //---------------------------------------------------------------------------
 //Динамический массив.
 //---------------------------------------------------------------------------
-void Dymamic_memory_new(void)
+void Dynamic_memory_new(void)
 {
 	int    * Arr;        // Указатель на массив
 	int    i, Nn;        // Nn - длина
@@ -29,7 +29,7 @@ void Dymamic_memory_new(void)
 
 //-----------------------------------------------------------------------------------
 // Алгоритмы.
-void Out_Arr(float Arr[], int len)        // Длина len не изменяется - значение.
+void Out_Arr_2(float Arr[], int len)        // Длина len не изменяется - значение.
 {
 	int i;
 	cout.precision(3);
@@ -39,22 +39,24 @@ void Out_Arr(float Arr[], int len)        // Длина len не изменяется - значение.
 	cout << endl;;
 }
 
-void Input_Arr(float *Arr, int &len)        // Длина len изменяется - & адрес.
+void Input_Arr_2(float *Arr, int &len)        // Длина len изменяется - & адрес.
 {                                          
-	float *ip;
-	cout << "Input Count < " << MAX_SIZE;
+	float *ip; //переменная-ссылка
+	cout << "Input Count < " << MAX_SIZE; //msize = 10 по #define
 	cin >> len;
 	cout << "Input elements\n";
-	for (ip = Arr; ip<Arr + len; ip++)
+	for (ip = Arr; ip < Arr + len; ip++)
 		cin >> *ip;                   
 }
 
-void transform_One(float Arr[], int len)    
+// Arr[i] = Arr[i] * 2
+void transform_One(float Arr[], int len) 
 {
 	int i;
 	for (i = 0; i<len; i++)
 		Arr[i] = Arr[i] * 2;
 }
+// if (Arr[i] < 0) : (Arr[k] = Arr[k + 1], len--)
 void transform_Two(float *Arr, int &len)
 {
 	int i;
@@ -67,11 +69,14 @@ void transform_Two(float *Arr, int &len)
 		}
 }
 
+//копирование через параметры
 void Copy_One(float Arr[], float Arr_Copy[], int len)
 {
 	for (int i = 0; i < len; i++)
-		Arr_Copy[i] = Arr[i];
+		Arr_Copy[i] = Arr[i]; //параметрическое копирование
 }
+
+//return Arr_Copy as float*
 float * Copy_Two(float Arr[], int len)
 {
 	float * Arr_Copy;	     // Область ОП, связанная с указателем.

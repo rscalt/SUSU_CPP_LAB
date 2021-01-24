@@ -1,9 +1,10 @@
 #include <iostream>
+#include <iomanip> 
 #include <conio.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>  // Для srand()
 #include <math.h> 
+#include <time.h>  // Для srand()
 
 using namespace std;
 //===================================================
@@ -57,7 +58,7 @@ void Print_Arr (float a[], int len_a)
 }
 //===================================================
 
-void Input_Arr(int a[], int & len_a)
+void Input_Arr(int a[], int &len_a)
 { //Ввод массива
    cout << "\nInput length of Array:\n";
    cin >> len_a;	// Сколько данных.
@@ -197,10 +198,18 @@ int Point(int x[], int y[], int Count)
 
 void print_array (float arr[], int arr_length) //элегантный вывод float
 {
-        cout << "Array " << arr << ":\n";
-        cout << "index\t" << "element\n";
+        cout << "Array at " << arr << ":\n";
+
+        cout << "index\t" << "element\t";
+		cout << "hex_address\t" << "dec_address\n";
     for (int i = 0; i < arr_length; i++)
-        cout << setw(2) << i << "\t" << setw(5) << arr[i] << "\n";   
+		{
+        cout << setw(2) << i << "\t";
+		cout << setw(5) << arr[i] << "\t";
+		cout << setw(10) << &arr[i] << "\t";
+		printf("%d",&arr[i]);
+		cout << "\n";
+		}
 }
 
 void print_array (int arr[], int arr_length) //элегантный вывод int
@@ -210,6 +219,7 @@ void print_array (int arr[], int arr_length) //элегантный вывод int
     for (int i = 0; i < arr_length; i++)
         cout << setw(2) << i << "\t" << setw(5) << arr[i] << "\n";   
 }
+
 void print_array (int arr_a[], int arr_b[], int arr_length) //элегантный вывод двух параллельных int-массивов
 {
         cout << "\nArrays " << arr_a << " and " << arr_b << ":\n";
