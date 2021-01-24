@@ -9,28 +9,33 @@
 В main должны быть объявлены принимающие данные.
 Обращение к функции Copy_One:Copy_One(a, b, n);
 Обращение к функции Copy_Two:float *New_a = Copy_Two(a,n); */
-
 #include <iostream>
 #include "Array.h"
 #include "Pointerr.h"
-#include  <malloc.h>
 
 int main()
 {
     cout << "=====================Copy_One============================\n";
     float arr[] = {-1., 2., -3., 4., -5.}; //исходный массив
     int arr_length = sizeof(arr)/sizeof(arr[0]);
-    print_array(arr, arr_length);
 
-    float arr_copy[5] = {}; //для наглядности
+    print_array(arr, arr_length); //исходный
+
+    float arr_copy[5] = {}; //явная инициализация нулями
     int arr_copy_length = sizeof(arr_copy)/sizeof(arr_copy[0]);
+
     print_array(arr_copy, arr_copy_length); //нулевой
 
-    Copy_One(arr, arr_copy, arr_copy_length);
+    Copy_One(arr, arr_copy, arr_copy_length);                                             
 
-    print_array(arr_copy, arr_copy_length); //копия
+    print_array(arr_copy, arr_copy_length); //копия в нулевом
     cout << "=====================Copy_Two============================\n";
-    print_array(arr, arr_length);
-    float *new_arr_copy = Copy_Two(arr, arr_length); //copy_two возвращает указатель на начало выделенного (new) блока памяти ...
-    print_array(new_arr_copy, arr_length); // а длина вышеуказанного блока = arr_length
+    float arr2[] = {-8., 9., -10., 1., -3.}; //исходный массив
+    int arr2_length = sizeof(arr2)/sizeof(arr2[0]);
+
+    print_array(arr2, arr2_length);
+
+    float *new_arr2_copy = Copy_Two(arr2, arr2_length); //copy_two() возвращает указатель на начало выделенного (new) блока памяти ...
+    print_array(new_arr2_copy, arr2_length); // ... а длина вышеуказанного блока (контроля которой, к тому же,  нет) = arr_length
+    delete[] new_arr2_copy; //... но память все равно будет освобождена после закрытия программы
 }
