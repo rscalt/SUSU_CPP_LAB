@@ -86,6 +86,70 @@ float * Copy_Two(float Arr[], int len)
 	return Arr_Copy;
 }
 
+//======================================================================
+//Упражение 3 - опишем twoArr()
+float* twoArr
+(float *mix_arr, int size, 
+ float *two_arr_ptr, 
+ int& positive_counter, //по ссылке
+ int& negative_counter) //по ссылке
+
+{ 	//перед выделением памяти нужно подсчитать количество положительных и отрицательных значений (без нулей!)
+	for (int i = 0; i < size; i++)
+	{
+		if (mix_arr[i] != 0) //нулевые значения пропускаются
+		{
+			if (mix_arr[i] < 0)
+				negative_counter++;
+			else
+			if (mix_arr[i] > 0)
+				positive_counter++;
+			else continue;
+		}
+	else continue;
+	}
+	//выделяем память под новый массив (массивы)
+	two_arr_ptr = new float[positive_counter+negative_counter]();
+
+	
+	int delta_pos = 0;
+	int delta_neg = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		if (mix_arr[i] != 0) 
+		{
+			if (mix_arr[i] < 0)
+			{	//positive_counter - смещение для расстановки элементов второго массива (-)
+				two_arr_ptr[positive_counter+delta_neg] = mix_arr[i];
+				delta_neg++;
+			}
+			if (mix_arr[i] > 0) 
+			{
+				two_arr_ptr[delta_pos] = mix_arr[i];
+				delta_pos++; 
+			}
+		}
+		else continue;
+	}
+	return two_arr_ptr; //указатель на начало массива из двух массивов
+	//решение достаточно: теперь мы можем оперировать двумя указателями первых элементов (&arr[0]) и соответствующими двумя длинами непрерывной однородной памяти
+}
+
+
+//для упражнения №4 - возврат адреса целочисленного массива
+int *new_arr(const unsigned int size)
+{
+    int *new_arr = new int[size]();
+    for (int i = 0; i < size; i++)
+    {
+        if ((i+1)%2 == 0) 
+             new_arr[i] = -(i+1)/2;
+        else new_arr[i] =  (i+2)/2;
+    }
+    return new_arr;
+}
+
 
 
 

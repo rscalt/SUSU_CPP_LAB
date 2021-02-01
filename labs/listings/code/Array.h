@@ -110,14 +110,14 @@ int YesDown(int a[], int n)
 //===================================================
 
 // 2. Минимакс находит и возвращает номер наименьшего элемента.
-int Min(int a[], int n)
-{ 	// Номер наименьшего.
-int min=0;
-for (int i=1; i<n; i++)
-	if (a[i]<a[min])
-		min=i;
-return min;
-}
+	int Min(int a[], int n)
+	{ 	// Номер наименьшего.
+	int min=0;
+	for (int i=1; i<n; i++)
+		if (a[i]<a[min])
+			min=i;
+	return min;
+	}
 
 int Min(float a[], int n) //добавим перегрузку для float-массива
 { 	// Номер наименьшего.
@@ -205,7 +205,7 @@ void print_array (float arr[], int arr_length) //элегантный вывод float
     for (int i = 0; i < arr_length; i++)
 		{
         cout << setw(2) << i << "\t";
-		cout << setw(5) << arr[i] << "\t";
+		cout << setw(5) << setprecision(2) << arr[i] << "\t";
 		cout << setw(10) << &arr[i] << "\t";
 		printf("%d",&arr[i]);
 		cout << "\n";
