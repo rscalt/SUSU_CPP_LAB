@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Array.h"
 
-int array_counter(int *arr, int SIZE);
+//int array_counter(int *arr, int SIZE);
 
 int main()
 {
@@ -39,6 +39,7 @@ int main()
     cout << numb_min;
 }
 
+//среднее значение элементов float-массива
 void average(float Point, float &avg) //по значению, по ссылке
 {
     float value;
