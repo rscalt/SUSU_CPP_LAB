@@ -46,6 +46,7 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "area_heron": "cpp"
+        "area_heron": "cpp",
+        "valarray": "cpp"
     }
 }

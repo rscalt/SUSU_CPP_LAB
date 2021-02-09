@@ -95,3 +95,4 @@ bool append_if_sorted(float *arr, int &arr_length, bool is_sorted) //добав�
         return false;
     }
 }
+
