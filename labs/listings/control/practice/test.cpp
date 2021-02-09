@@ -1,4 +1,4 @@
-//считалка с выбыванием до тех пор, пока не останется только один
+/* //считалка с выбыванием до тех пор, пока не останется только один
 float number_game(float *arr, int arr_length)
 {
     int word_count; //слов в считалке; 
@@ -46,4 +46,4 @@ float number_game(float *arr, int arr_length)
         cout << endl;
     }
     return arr[0];
-}
+} */
