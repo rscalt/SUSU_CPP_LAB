@@ -11,7 +11,7 @@
 using namespace std;
 
 float *create_circle (float *arr, int &arr_length); //создание динамического массива - натурального ряда чисел
-void print_array(float *arr, int arr_length); ////детилазированный вывод float-массива
+void print_array(float *arr, int arr_length); ////детализированный вывод float-массива
 float number_game(float *arr, int arr_length); //считалка с выбыванием до тех пор, пока не останется только один; возвращает номер оставшегося.
 
 int main()
