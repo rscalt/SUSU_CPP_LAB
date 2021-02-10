@@ -1,5 +1,9 @@
 *vscode*
+
 *.pdf
 *.doc*
 *.exe
+
 tempCRF.*
+midterm.cpp
+test.cpp
