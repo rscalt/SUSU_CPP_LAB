@@ -112,8 +112,8 @@ float number_game(float *arr, int arr_length)
         else if (word_count > arr_length )
             index_to_out = (word_count%arr_length)-1;  
         
-        cout << "A member leaves the circle: ";
-        cout << "(i: " << index_to_out << "; num: " << index_to_out+1;
+        cout << "out";
+        cout << "_num: " << index_to_out+1 << "\t\t (i: " << index_to_out;
         cout <<"; value: " << arr[index_to_out] << ", word count: " << word_count << ")";
         cout << endl;
 
@@ -121,6 +121,7 @@ float number_game(float *arr, int arr_length)
             arr[i] = arr[i+1]; //текущий элемент = следующему
         arr[last_index] = 0; //обнуляем дубликат
         arr_length--;
+        last_index = arr_length - 1;
         
         cout << "Round " << round << " ends with circle:\n";
         print_array_string(arr, arr_length);
