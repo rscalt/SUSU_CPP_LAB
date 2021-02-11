@@ -112,7 +112,7 @@ float number_game(float *arr, int arr_length)
         else if (word_count > arr_length )
             index_to_out = (word_count%arr_length)-1;  
         
- /*        cout << "out";
+     /* cout << "out";
         cout << "_#: " << index_to_out+1 << "\t\t (i: " << index_to_out;
         cout <<"; value: " << arr[index_to_out] << ", word count: " << word_count << ")";
         cout << endl; */
