@@ -84,15 +84,15 @@ void print_array(float *arr, int arr_length)
 //считалка с выбыванием до тех пор, пока не останется только один
 float number_game(float *arr, int arr_length)
 {
-    int word_count; //слов в считалке; 
+    int word_count; //сколько слов в считалке (условимся, что 1 слово = 1 счет)
     //после выбывающего начинает считать тот, кто следующий в круге
     cout << endl;
     cout << "Enter words number: ";
-    cin >> word_count;
+    cin >> word_count; //сколько слов в считалке (условимся, что 1 слово = 1 счет)
 
-    int index_to_out = 0; //кто выбывает
-    int last_index = arr_length - 1; //последний индекс
-    int round = 1;
+    int index_to_out = 0; //индекс того, кто выбывает
+    int last_index = arr_length - 1; //последний индекс = arr_length - 1
+    int round = 1; //вспомогательная для наглядности игры
 
     while (arr_length > 1)
     {
@@ -102,9 +102,15 @@ float number_game(float *arr, int arr_length)
         print_array_string(arr, arr_length);
         cout << "\n";
 
-        index_to_out = (word_count%arr_length)-1; //индекс того, кто выбывает; периодичность (движение по кругу) процесса реализуется через modf либо %
-        if (word_count == arr_length) //единожды во время считалки; иначе получим index_to_out < 0
-            index_to_out = word_count-1;
+        //счет по кругу реализуется через %
+        // скорее всего, есть боле изящная форма реализации без ветвей..
+        //... но так нагляднее
+        if (word_count < arr_length)
+            index_to_out = word_count-1; //индекс того, кто выбывает;
+        else if (word_count%arr_length == 0) // включает случай (word_count == arr_length)
+            index_to_out = last_index;
+        else if (word_count > arr_length )
+            index_to_out = (word_count%arr_length)-1;  
         
         cout << "A member leaves the circle: ";
         cout << "(i: " << index_to_out << "; num: " << index_to_out+1;
