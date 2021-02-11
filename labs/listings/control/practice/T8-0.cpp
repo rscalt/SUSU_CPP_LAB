@@ -26,7 +26,7 @@ int main()
 
     print_array(CROWD_ARRAY_PTR, array_length); //как было
     float last = number_game(CROWD_ARRAY_PTR, array_length); //поиграли
-    print_array(CROWD_ARRAY_PTR, array_length); //либо array_length = 1 //как стало
+    print_array(CROWD_ARRAY_PTR, 1); //как стало
 
     cout << endl;
     cout << "The last man standing is " << last; //кто остался
@@ -96,11 +96,11 @@ float number_game(float *arr, int arr_length)
 
     while (arr_length > 1)
     {
-        cout << "==========================" << endl;
+      /*   cout << "==========================" << endl;
         cout << "Round " << round << " starts with circle:";
         cout << endl;
         print_array_string(arr, arr_length);
-        cout << "\n";
+        cout << "\n"; */
 
         //счет по кругу реализуется через %
         // скорее всего, есть боле изящная форма реализации без ветвей..
@@ -112,10 +112,10 @@ float number_game(float *arr, int arr_length)
         else if (word_count > arr_length )
             index_to_out = (word_count%arr_length)-1;  
         
-        cout << "out";
-        cout << "_num: " << index_to_out+1 << "\t\t (i: " << index_to_out;
+ /*        cout << "out";
+        cout << "_#: " << index_to_out+1 << "\t\t (i: " << index_to_out;
         cout <<"; value: " << arr[index_to_out] << ", word count: " << word_count << ")";
-        cout << endl;
+        cout << endl; */
 
         for (int i = index_to_out; i < last_index; i++) //смещаем элементы влево
             arr[i] = arr[i+1]; //текущий элемент = следующему
@@ -123,7 +123,7 @@ float number_game(float *arr, int arr_length)
         arr_length--;
         last_index = arr_length - 1;
         
-        cout << "Round " << round << " ends with circle:\n";
+        //cout << "Round " << round << " ends with circle:\n";
         print_array_string(arr, arr_length);
         cout << endl;
 
