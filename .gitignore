@@ -6,6 +6,5 @@
 
 tempCRF.*
 
-z_test1.cpp
-z_test2.cpp
-z_test3.cpp
+z_test*.cpp
+
