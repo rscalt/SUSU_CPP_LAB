@@ -6,156 +6,131 @@
 
 using namespace std;
 
-const int matrix_rows_total = 3;
-const int matrix_columns_total = 4;
+const int total_rows = 3; //строк
+const int total_columns = 4; //столбцов
+const int element_count = total_rows*total_columns;
 
-void print_array_string(float *arr, int arr_length);
-void print_matrix(float matrix[matrix_rows_total][matrix_columns_total], const int &matrix_rows_total, const int &matrix_columns_total);
-void enter_matrix(float matrix[matrix_rows_total][matrix_columns_total], const int &mx_rows_total, const int &mx_columns_total);
-float *array_of_max(float matrix[matrix_rows_total][matrix_columns_total], const int &mx_rows_total, const int &mx_columns_total, float *row_max);
-float find_max(float *row_max, int matrix_rows_total);
-float *array_of_min(float matrix[matrix_rows_total][matrix_columns_total], const int &mx_rows_total, const int &mx_columns_total, float *row_min);
-float find_min(float *row_max, int matrix_rows_total);
-void null_max(float matrix[matrix_rows_total][matrix_columns_total], const int &mx_rows_total, const int &mx_columns_total);
+bool warning_flag = false; //единожды уведомили пользователя по поводу флагов удаления
 
-
+void enter_matrix(int *matrix, int total_rows = total_rows, int total_columns = total_columns); //заполнение матрицы случайными значениями от 0 до 20
+void print_matrix(int *matrix, int element_count = element_count); //вывод на печать
+int row_find_max(int *matrix, int selected_row, bool return_index, int total_columns = total_columns); //максимальный элемент переданной строки
+int row_find_min(int *matrix, int selected_row, bool return_index, int total_columns = total_columns); //минимальный элемент переданной строки
+void nullify_row_at_index(int *matrix, int selected_row, int total_columns = total_columns);
 
 
 int main()
-{   
-    float matrix[matrix_rows_total][matrix_columns_total] = {};
-
+{
     cout << "\nInitializing matrix: \n";
-    print_matrix(matrix, matrix_rows_total, matrix_columns_total);
-    
-    cout << "\nEnter the matrix: \n";
-    enter_matrix(matrix, matrix_rows_total, matrix_columns_total);
-
-    cout << "\nThe matrix is: \n";
-    print_matrix(matrix, matrix_rows_total, matrix_columns_total);
-
-    cout << "\nThe array of row max INDEXEX is: \n";
-    float *indexes_of_row_max_ptr = new float[matrix_rows_total]();
-    indexes_of_row_max_ptr = array_of_max(matrix, matrix_rows_total, matrix_columns_total, indexes_of_row_max_ptr);
-    print_array_string(indexes_of_row_max_ptr, matrix_rows_total);
-
-    cout << "\nThe array of row min INDEXEX is: \n";
-    float *indexes_of_row_min_ptr = new float[matrix_rows_total]();
-    indexes_of_row_min_ptr = array_of_min(matrix, matrix_rows_total, matrix_columns_total, indexes_of_row_min_ptr);
-    print_array_string(indexes_of_row_min_ptr, matrix_rows_total);
+    int matrix[total_rows*total_columns] = {}; //матрица из n*m элементов
+    print_matrix(matrix); //параметры по умолчанию - в объявлении
+    cout << endl;
 
 
-    cout << "\n MAX of array of row max values is: \n";
-    cout << find_max(indexes_of_row_max_ptr, matrix_rows_total);
-    cout << "\n MIN of array of row min values is: \n";
-    cout << find_min(indexes_of_row_min_ptr, matrix_rows_total);
+    cout << "\nRandom-filled matrix:\n"; //
+    enter_matrix(matrix); //параметры по умолчанию - в объявлении
+    print_matrix(matrix); //параметры по умолчанию - в объявлении
+    cout << endl;
+
+    cout << "\nMax and Min of each row:\n";
+    for (int row = 1; row <= total_rows; row++) //передаем строки по очереди и смотрим значения
+    {
+        cout << row_find_max(matrix, row, false) << " ";
+        cout << row_find_min(matrix, row, false) << " ";     
+        cout << "\n";
+    }   
+        
+        
+
+    cout << "\nNullifying max and min for each row...\n";
+    for (int row = 1; row <= total_rows; row++) //передаем строки по очереди и удаляем значения
+        nullify_row_at_index(matrix, row);
+    cout << "Done!\n";
+
+    cout << "\nNew matrix: ";
+    print_matrix(matrix);
 
 }
-
-void print_matrix(float matrix[matrix_rows_total][matrix_columns_total], const int &mx_rows_total, const int &mx_columns_total )
+ //заполнение матрицы случайными значениями от 10 до 100
+void enter_matrix(int *matrix, int total_rows, int total_columns)
 {
-    for (int current_row = 0; current_row < mx_rows_total; current_row++)
-        for (int current_column = 0; current_column < mx_columns_total; current_column++)
-        {
-            if ( (current_column%mx_columns_total == 0) && (current_row != 0) )
-                cout << endl;
-            cout << matrix[current_row][current_column] << " ";
-        }
+    srand(time(NULL));
+    int current_row_index = 0;
+    int current_column_index = 0;
+
+    for (current_row_index = 0; current_row_index < total_rows; current_row_index++)
+        for (current_column_index = 0; current_column_index < total_columns; current_column_index++)
+            *(matrix + current_row_index*total_columns + current_column_index) = 10 + (rand())%90; //разыменование адреса
 }
 
-void enter_matrix(float matrix[matrix_rows_total][matrix_columns_total], const int &mx_rows_total, const int &mx_columns_total)
+ //вывод
+void print_matrix(int *matrix, int element_count)
 {
-    int current_row = 0;
-    int current_column = 0;
-
-    for (current_row = 0; current_row < mx_rows_total; current_row++)
-        for (current_column = 0; current_column < mx_columns_total; current_column++)
-        //system("cls");
-        {
-            /* cout << "[" << current_row << "]"
-                    << "[" << current_column << "]"
-                    << ": " << endl; 
-            */
-            //cin >> matrix[current_row][current_column];
-            matrix[current_row][current_column] = rand()%100;
-        }
-}
-
-//обнуляет максимальный элемент матрицы
-void null_max(float matrix[matrix_rows_total][matrix_columns_total], const int &mx_rows_total, const int &mx_columns_total, float *row_max)
-{
-/*     int current_row = 0;
-    int current_column = 0;
-    int last_row = mx_rows_total-1;
-    int last_column = mx_columns_total-1;
-
-    for (current_row = 0; )
- */
-}
-
-float *array_of_max(float matrix[matrix_rows_total][matrix_columns_total], const int &mx_rows_total, const int &mx_columns_total, float* indexes_of_row_min)
-{
-    int current_row = 0;
-    int current_column = 0;
-    int last_row = mx_rows_total-1;
-    int last_column = mx_columns_total-1;
-
-    for (current_row = last_row; current_row >= 0; current_row--)
-    {   
-        indexes_of_row_min[current_row] = matrix[current_row][last_column];
-        for (current_column = last_column; current_column > 0; current_column--)   
-            {
-                if (matrix[current_row][current_column-1] > indexes_of_row_min[current_row])
-                indexes_of_row_min[current_row] = current_column-1;
-            }
+    for (int i = 0; i < element_count-1; i++) //в цикле - вывод без последнего элемента
+    {
+        if ((i%total_columns) == 0)
+            cout << endl;
+        cout << matrix[i] << " ";
     }
-    return indexes_of_row_min;
+    cout << matrix[element_count-1]; //вне цикла - последний элемент, без запятой
 }
 
-float *array_of_min(float matrix[matrix_rows_total][matrix_columns_total], const int &mx_rows_total, const int &mx_columns_total, float* indexes_of_row_min)
+int row_find_max(int *matrix, int selected_row, bool return_index, int total_columns)
 {
-    int current_row = 0;
-    int current_column = 0;
-    int last_row = mx_rows_total-1;
-    int last_column = mx_columns_total-1;
+        int selected_row_index = selected_row - 1; //индекс переданной строки
+        int row_max =  *(matrix + total_columns*selected_row_index + 0); // arr[selected_row_index][0]
+        int index_of_row_max = 0; //индекс элемента для удаления
+        
 
-    indexes_of_row_min[current_row] = matrix[current_row][last_column];
-
-    for (current_row = last_row; current_row >= 0; current_row--)
-    {  
-        indexes_of_row_min[current_row] = matrix[current_row][last_column];
-        for (current_column = last_column; current_column > 0; current_column--)
-        { 
-            if (matrix[current_row][current_column-1] < indexes_of_row_min[current_row])
-                indexes_of_row_min[current_row] = current_column-1;
+        for (int current_column_index = 1; current_column_index < total_columns; current_column_index++) //со второго элемента строки
+        {
+            if ( *(matrix + selected_row_index*total_columns + current_column_index) > row_max)
+                {
+                row_max = *(matrix + selected_row_index*total_columns + current_column_index);
+                index_of_row_max = current_column_index;
+                }
         }
-    }
-    return indexes_of_row_min;
+
+        if (return_index == true)
+            return index_of_row_max;
+        else
+            return row_max;
 }
 
-void print_array_string(float *arr, int arr_length)
+
+int row_find_min(int *matrix, int selected_row, bool return_index, int total_columns)
 {
-    for (int i = 0; i < arr_length-1; i++)
-        cout << arr[i] << ", ";
-    cout << arr[arr_length-1];
+        int selected_row_index = selected_row - 1; //индекс переданной строки
+        int row_min =  *(matrix + total_columns*selected_row_index + 0); // arr[selected_row_index][0]
+        int index_of_row_min = 0; //индекс элемента для удаления
+        
+
+        for (int current_column_index = 1; current_column_index < total_columns; current_column_index++) //со второго элемента строки
+        {
+            if ( *(matrix + selected_row_index*total_columns + current_column_index) < row_min)
+                {
+                row_min = *(matrix + selected_row_index*total_columns + current_column_index);
+                index_of_row_min = current_column_index;
+                }
+        }
+
+        if (return_index == true)
+            return index_of_row_min;
+        else
+            return row_min;
 }
 
-float find_min(float *row_min, int matrix_rows_total)
+void nullify_row_at_index(int *matrix, int selected_row, int total_columns)
 {
-    float min_row_min = row_min[matrix_rows_total];
-    for (int i = matrix_rows_total; i > 0; i--)
-        if (row_min[i-1] < min_row_min )
-            min_row_min = row_min[i-1];
 
-    return min_row_min;
-}
+    int selected_row_index = selected_row - 1; //индекс переданной строки
+    int column_index_to_nullify = 0;
 
-float find_max(float *row_max, int matrix_rows_total)
-{
-    float max_row_max = row_max[matrix_rows_total];
-    for (int i = matrix_rows_total; i > 0; i--)
-        if (row_max[i-1] > max_row_max )
-            max_row_max = row_max[i-1];
+    column_index_to_nullify = row_find_min(matrix, selected_row, true);
+    *(matrix + selected_row_index*total_columns + column_index_to_nullify) = 0;
 
-    return max_row_max;
+    column_index_to_nullify = 0;
+
+    column_index_to_nullify = row_find_max(matrix, selected_row, true);
+    *(matrix + selected_row_index*total_columns + column_index_to_nullify) = 0;
 }
