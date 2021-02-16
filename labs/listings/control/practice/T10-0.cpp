@@ -39,11 +39,14 @@ void cout_matrix(string csv_array_as_matrix[total_lines][total_columns],
                  int total_columns = total_columns);
 
 void cout_matrix(int profit_array[total_lines][profit_array_columns]);
-
 void cout_array(string *csv_array_as_line, int array_length = array_length);
-long calc_profit(int &month_sales, int &month_price, int &month_costs);
 void cout_profit(long profit_array[total_lines][profit_array_columns]);
+
+long calc_profit(int &month_sales, int &month_price, int &month_costs);
+
 void bubble_sort_desc(long profit_array[total_lines][profit_array_columns]);
+void bubble_sort_desc(string array[total_lines][total_columns], int selected_column);
+
 void swap_content_between_lines(long array[][profit_array_columns], int first_line_index, int second_line_index, int column_number);
 void swap_values(long &a, long &b);
 //====================================================================================
@@ -191,7 +194,7 @@ long calc_profit(int &month_sales, int &month_price, int &month_costs)
   return month_profit;
 }
 
-//сортировка пузырьком (по убыванию)
+//сортировка пузырьком (по убыванию) //для прибылей
 void bubble_sort_desc(long profit_array[total_lines][profit_array_columns])
 {
   for (int i = 0; i < total_lines - 1; i++)   //максимальное смещение: на один индекс
@@ -206,6 +209,20 @@ void bubble_sort_desc(long profit_array[total_lines][profit_array_columns])
     }
 }
 
+//сортировка пузырьком (по убыванию) //для заданного столбца таблицы
+void bubble_sort_desc(string array[total_lines][total_columns], int selected_column)
+{
+  for (int i = 0; i < total_lines - 1; i++)   //максимальное смещение: на один индекс
+    for (int j = 0; j < total_lines - 1; j++) //в худшем случае таких смещений нужно по общему числу элементов
+    {
+      for (int line_index = 0; line_index < total_lines; line_index++)
+        if (array[line_index + 1][selected_column - 1] > array[line_index][selected_column - 1])
+        {
+          swap_content_between_lines(array, line_index, line_index + 1, selected_column);
+          swap_content_between_lines(array, line_index, line_index + 1, profit_column_id);
+        }
+    }
+}
 //переставляет значения a и b
 void swap_values(long &a, long &b)
 {
@@ -215,13 +232,26 @@ void swap_values(long &a, long &b)
   b = temp;
 }
 
-//переставляет значения колонки (по номеру колонки) между указанными строками (по индексам строк) 
+//переставляет значения колонки (по номеру колонки) между указанными строками (по индексам строк)
 void swap_content_between_lines(long array[][profit_array_columns], int first_line_index, int second_line_index, int column_number)
 {
   int buffer_array_length;
   buffer_array_length = 1;
 
   long int *buffer_array_ptr = new long[buffer_array_length]();
+  buffer_array_ptr[0] = array[first_line_index][column_number - 1];
+
+  array[first_line_index][column_number - 1] = array[second_line_index][column_number - 1];
+  array[second_line_index][column_number - 1] = buffer_array_ptr[0];
+}
+
+//переставляет значения колонки (по номеру колонки) между указанными строками (по индексам строк)
+void swap_content_between_lines(string array[total_lines][total_columns], int first_line_index, int second_line_index, int column_number)
+{
+  int buffer_array_length;
+  buffer_array_length = 1;
+
+  string *buffer_array_ptr = new string[buffer_array_length]();
   buffer_array_ptr[0] = array[first_line_index][column_number - 1];
 
   array[first_line_index][column_number - 1] = array[second_line_index][column_number - 1];
