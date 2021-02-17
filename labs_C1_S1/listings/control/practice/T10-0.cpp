@@ -132,7 +132,7 @@ int main()
   cout_profit(profit_array);
 
   cout << "\n\n";
-  //матрица со столбцом прибылией
+  //матрица со столбцом прибылей
   cout_matrix(csv_array_as_matrix, true, profit_array);
 
   cout << "\n\n";
@@ -166,9 +166,7 @@ void cout_matrix(string csv_array_as_matrix[total_lines][total_columns],
         string str_csv_id = csv_array_as_matrix[line_index][column_id - 1]; //значение csv-id
         int int_csv_id;                                                 //значение csv-id
         stringstream(str_csv_id) >> int_csv_id;
-        
-        int profit_id = profit_array[line_index][profit_column_id - 1]; //значение profit_id
-
+        //по сконвертированному значению можно найти соответствующее значение прибыли
         for (int i = 0; i < total_lines; i++)
           if ( int_csv_id == profit_array[i][profit_column_id - 1] ) //для т екущего csv-id ищем соответствующее по значение прибыли через profit_id
             cout << profit_array[i][profit_column_profit - 1];
