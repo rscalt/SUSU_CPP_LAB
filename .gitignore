@@ -2,6 +2,7 @@
 
 *.pdf
 *.doc*
+*.xls*
 *.exe
 
 tempCRF.*
