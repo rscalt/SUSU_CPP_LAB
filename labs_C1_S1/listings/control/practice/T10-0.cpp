@@ -59,7 +59,9 @@ void swap_values(long &a, long &b);
 //getline(файл) -> getline(строка файла) -> ячейка таблицы
 int main()
 {
-  string filename = "db_sales_2020.csv"; //имя файла
+  //файловый обменник сайта не принимает csv-файлы, 
+  //но в дальнейшем на этот файл мы будем ссылаться как на csv
+  string filename = "db_sales_2020.doc"; //имя файла
   ifstream data;                         //поток данных из файла
   data.open(filename, ios::out);         //файл только для чтения
 

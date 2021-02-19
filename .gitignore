@@ -4,6 +4,8 @@
 *.doc*
 *.xls*
 *.exe
+*.bin
+*.dat
 
 tempCRF.*
 

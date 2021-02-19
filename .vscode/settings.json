@@ -47,6 +47,8 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "area_heron": "cpp",
-        "valarray": "cpp"
-    }
+        "valarray": "cpp",
+        "cstring": "cpp"
+    },
+    "C_Cpp.dimInactiveRegions": false
 }
