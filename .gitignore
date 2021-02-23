@@ -10,5 +10,5 @@
 tempCRF.*
 *.tmp
 
-z_test*.cpp
+z_test*.*
 
