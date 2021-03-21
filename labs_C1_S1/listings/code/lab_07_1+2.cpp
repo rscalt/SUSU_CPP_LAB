@@ -27,7 +27,7 @@ int main()
     << setiosflags(ios::fixed) // неслетающий флаг...
     << setiosflags(ios::right) // выравнивание для setw()
     << setiosflags(ios::showpoint) // всегда с точкой...
-    << setprecision(2) << setfill('0');//знаков после запятой + fill
+    << setprecision(1) << setfill('0');//знаков после запятой + fill
 
     float array[] = {1.5, 2.5, 3.0, 12.0}; //инициализированный массив
     int array_length = sizeof(array)/sizeof(float); //длина массива float-переменных
