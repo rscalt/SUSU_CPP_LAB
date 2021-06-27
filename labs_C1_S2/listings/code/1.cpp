@@ -1,8 +1,10 @@
 #include <iostream>
 #include <math.h>
+#include <iomanip>
+
 using namespace std;
 ////////////////////////////////////////////////////////
-class length
+class Distance
 {
 private:
     //наименование маршрута
@@ -11,6 +13,8 @@ private:
     unsigned int km;
     //метры
     unsigned int m;
+    //ширина ячейки в символах (для вывода)
+    unsigned int cell_width = 5;
 
     //проверка ввода (на соответствие типу данных)
     void loop_check_buffer(int &input_buffer)
@@ -28,7 +32,7 @@ private:
 
     //проверка ввода (на корректность ввода метров)
     int fix_values(unsigned int &km_value,
-                    unsigned int &m_value)
+                   unsigned int &m_value)
     {
 
         if (m_value >= 1000)
@@ -39,7 +43,7 @@ private:
 
             //приведенное значение метров
             unsigned int valid_m = 0;
-            valid_m = m_value - add_to_km*1000;
+            valid_m = m_value - add_to_km * 1000;
 
             //хакерскую эзотерику отбрасываем
             if (add_to_km >= 1000)
@@ -76,7 +80,7 @@ private:
     }
 
 public:
-    //ввод
+    //произвольный ввод
     void getData()
     {
         //промежуточный буфер для проверки ввода
@@ -118,19 +122,30 @@ public:
     void showData()
     {
         cout << "\n";
-        cout << "Name: " << name << "\n"
-             << "Kilometers: " << km << "\n"
-             << "Meters: " << m << "\n";
+        cout << setw(cell_width) << setfill(' ') << "Route"
+             << "\t";
+        cout << setw(cell_width) << setfill(' ') << "Kmeters"
+             << "\t";
+        cout << setw(cell_width) << setfill(' ') << "Meters"
+             << "\t";
+        cout << "\n";
+        cout << setw(cell_width) << setfill(' ') << name << "\t";
+        cout << setw(cell_width) << setfill(' ') << km << "\t";
+        cout << setw(cell_width) << setfill(' ') << m << "\t";
         cout << "\n";
     }
 };
 ////////////////////////////////////////////////////////
 int main()
 {
-    length route1, route2;
+    system("cls");
+
+    Distance route1, route2;
     route1.getData();
-    route2.getData();
+    //route2.getData();
 
     route1.showData();
-    route2.showData();
+    //route2.showData(); 
+
+    system("pause");
 }
