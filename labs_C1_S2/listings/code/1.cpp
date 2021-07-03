@@ -4,9 +4,12 @@
 
 using namespace std;
 ////////////////////////////////////////////////////////
+
 class Distance
 {
 private:
+    //cчетчик
+    static unsigned int id;
     //наименование маршрута
     string name;
     //километры
@@ -14,7 +17,7 @@ private:
     //метры
     unsigned int m;
     //ширина ячейки в символах (для вывода)
-    unsigned int cell_width = 5;
+    unsigned int cell_width = 12;
 
     //проверка ввода (на соответствие типу данных)
     void loop_check_buffer(int &input_buffer)
@@ -80,73 +83,134 @@ private:
     }
 
 public:
+    //===//===//===//===//===//===//===//===//===//===
+
+    //конструктор по умолчанию
+    Distance() : name("Default"), km(0), m(0)
+    {
+        name += to_string(++id);
+        cout << "\n\n";
+        cout << "Distance \"" << name << "\" have been created!";
+    }
+
+    //конструктор произвольного значения
+    Distance(unsigned int arg1,
+             unsigned int arg2,
+             string name_custom) : km(arg1), m(arg2)
+    {
+
+        name = name_custom + to_string(++id);
+        cout << "\n\n";
+        cout << "Distance \"" << name << "\" have been created!";
+    }
+
+    //конструктор округленного значения
+    Distance(float arg1,
+             float arg2,
+             string name_rounded) : km(round(arg1)), m(round(arg2))
+    {
+        name = name_rounded + to_string(++id);
+        cout << "\n\n";
+        cout << "Distance \"" << name << "\" have been created!";
+    }
+    //===//===//===//===//===//===//===//===//===//===
+
     //произвольный ввод
-    void getData()
-    {
-        //промежуточный буфер для проверки ввода
-        int buffer;
-
-        //здесь для string проверка не требуется
-        cout << "\nRoute name: \n";
-        cin >> name;
-
-        cout << "\nKilometers: \n";
-        cin >> buffer;
-        //сперва проверим сам буфер
-        loop_check_buffer(buffer);
-        //в случае успешной проверки
-        km = buffer;
-
-        cout << "\nMeters: \n";
-        cin >> buffer;
-        //сперва проверим сам буфер
-        loop_check_buffer(buffer);
-        //в случае успешной проверки
-        m = buffer;
-
-        //проверяем корректность ввода метров
-        int values_fixed = 0;
-        values_fixed = fix_values(km, m);
-        if (values_fixed)
-        {
-            cout << "\n";
-            cout << "Invalid meters value found (>=1000).";
-            cout << "\n";
-            cout << "Both kilometers and meters values have been fixed.";
-            cout << "\n";
-            cout << "Kilometres added: " << values_fixed;
-            cout << "\n";
-        }
-    }
+    void setData();
     //вывод
-    void showData()
-    {
-        cout << "\n";
-        cout << setw(cell_width) << setfill(' ') << "Route"
-             << "\t";
-        cout << setw(cell_width) << setfill(' ') << "Kmeters"
-             << "\t";
-        cout << setw(cell_width) << setfill(' ') << "Meters"
-             << "\t";
-        cout << "\n";
-        cout << setw(cell_width) << setfill(' ') << name << "\t";
-        cout << setw(cell_width) << setfill(' ') << km << "\t";
-        cout << setw(cell_width) << setfill(' ') << m << "\t";
-        cout << "\n";
-    }
-
+    void showData() const;
+    //перевод в метры
+    unsigned int getMeters() const;
 };
+
+unsigned int Distance::id = 0;
 ////////////////////////////////////////////////////////
 int main()
 {
-    system("cls");
+    //system("cls");
 
-    Distance route1, route2;
-    route1.getData();
-    //route2.getData();
+    Distance distance1;
+    distance1.showData();
+    distance1.getMeters();
 
-    route1.showData();
-    //route2.showData(); 
+    Distance distance2(10U, 20U, "Custom");
+    distance2.showData();
+    distance2.getMeters();
 
+    Distance distance3(30.55F, 20.45F, "Rounded");
+    distance3.showData();
+    distance3.getMeters();
+
+    Distance distance_array[3];
+    for (int i = 0; i < 3; i++)
+        distance_array[i].showData();
+
+    Distance *distance_dynamic = new Distance;
+
+    cout << "\n\n";
     system("pause");
+}
+
+void Distance::setData()
+{
+    //промежуточный буфер для проверки ввода
+    int buffer;
+
+    //здесь для string проверка не требуется
+    cout << "\nRoute name: \n";
+    cin >> name;
+
+    cout << "\nKilometers: \n";
+    cin >> buffer;
+    //сперва проверим сам буфер
+    loop_check_buffer(buffer);
+    //в случае успешной проверки
+    km = buffer;
+
+    cout << "\nMeters: \n";
+    cin >> buffer;
+    //сперва проверим сам буфер
+    loop_check_buffer(buffer);
+    //в случае успешной проверки
+    m = buffer;
+
+    //проверяем корректность ввода метров
+    int values_fixed = 0;
+    values_fixed = fix_values(km, m);
+    if (values_fixed)
+    {
+        cout << "\n";
+        cout << "Invalid meters value found (>=1000).";
+        cout << "\n";
+        cout << "Both kilometers and meters values have been fixed.";
+        cout << "\n";
+        cout << "Kilometres added: " << values_fixed;
+        cout << "\n";
+    }
+}
+
+void Distance::showData() const
+{
+    cout << "\n";
+    cout << setw(cell_width) << setfill(' ') << "Name"
+         << "\t";
+    cout << setw(cell_width) << setfill(' ') << "Kmeters"
+         << "\t";
+    cout << setw(cell_width) << setfill(' ') << "Meters"
+         << "\t";
+    cout << "\n";
+    cout << setw(cell_width) << setfill(' ') << name << "\t";
+    cout << setw(cell_width) << setfill(' ') << km << "\t";
+    cout << setw(cell_width) << setfill(' ') << m << "\t";
+}
+
+unsigned int Distance::getMeters() const
+{
+    unsigned int meters_amount = 0;
+    meters_amount = (this->km) * 1000 + (this->m);
+    cout << "\n";
+    cout << "Distance \"" << this->name << "\" is ";
+    cout << meters_amount;
+    cout << " meters long";
+    return meters_amount;
 }
