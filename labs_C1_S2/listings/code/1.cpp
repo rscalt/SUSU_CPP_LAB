@@ -1,9 +1,26 @@
+/* 
+    Практическоезадание No 1. 
+    Инкапсуляция
+    1.Опишите класс «Длина» для измерения расстояний.
+        Данные класса:число километров и метров, натуральные числа.
+        Конструкторы класса:конструктор по умолчанию, конструктор округленного значения и конструктор произвольной длины.
+    2.Определите методы:ввод длины, вывод на экран, определение длины в метрах 
+        и метод приведения, если данные заданы некорректно.
+    3.Объявите длину в километрах и произвольную длину как статические объекты
+        созданного типа, найдите длину в метрах для каждого объекта.
+    4.Объявите динамический объект по умолчанию, введите данные 
+        и выведите на экран
+    5.Объявите массив из 2-3 длин. 
+        Найдите способ присвоить им значения при создании объектов. 
+*/
+
 #include <iostream>
 #include <math.h>
 #include <iomanip>
 
 using namespace std;
 ////////////////////////////////////////////////////////
+void pause();
 
 class Distance
 {
@@ -122,13 +139,13 @@ public:
     //перевод в метры
     unsigned int getMeters() const;
 };
-
 unsigned int Distance::id = 0;
 ////////////////////////////////////////////////////////
 int main()
 {
-    //system("cls");
 
+    pause();
+    cout << "\n============ Task 3 ==============";
     Distance distance1;
     distance1.showData();
     distance1.getMeters();
@@ -136,19 +153,24 @@ int main()
     Distance distance2(10U, 20U, "Custom");
     distance2.showData();
     distance2.getMeters();
-
+    
     Distance distance3(30.55F, 20.45F, "Rounded");
     distance3.showData();
     distance3.getMeters();
 
+    pause();
+    cout << "\n============ Task 4 ==============";
+    Distance *distance_pointer = new Distance;
+    cout << "\nNew object is at " << distance_pointer;
+    distance_pointer->setData();
+    distance_pointer->showData();
+    
+    pause();
+    cout << "\n============ Task 5 ==============";
     Distance distance_array[3];
     for (int i = 0; i < 3; i++)
         distance_array[i].showData();
 
-    Distance *distance_dynamic = new Distance;
-
-    cout << "\n\n";
-    system("pause");
 }
 
 void Distance::setData()
@@ -213,4 +235,11 @@ unsigned int Distance::getMeters() const
     cout << meters_amount;
     cout << " meters long";
     return meters_amount;
+}
+
+void pause()
+{
+    cout << "\n";
+    system("pause");
+    cout << "\n";
 }
