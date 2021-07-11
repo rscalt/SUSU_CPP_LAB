@@ -56,7 +56,7 @@ public:
     //методы
     //################################################
     //отобразить параметры
-    void showDescription()
+    void showDescription() const
     {
         cout << "\n  It`s radiuses are "
              << m_inner_radius << " and " << m_outer_radius << "\n";
@@ -67,15 +67,15 @@ public:
     }
 
     //площадь кольца
-    int getArea()
+    float getArea() const
     {
-        int area;
+        float area;
         area = m_PI * (m_outer_radius * m_outer_radius - m_inner_radius * m_inner_radius);
         return area;
     }
 
     //принадлежность кольцу точки с указанными координатами
-    bool is_point_inside(int point_x, int point_y)
+    bool isPointInside(int point_x, int point_y) const
     {
         int dist_total, dist_x, dist_y;
         dist_x = pow((point_x - m_center_x), 2);
@@ -91,7 +91,7 @@ public:
     //вывод параметров кольца в консоль
     friend std::ostream &operator<<(std::ostream &cout_stream, const Ring &ring_object)
     {
-        cout_stream << "  \n Getting parameters... \n"
+        cout_stream << "  \n  ->Sending parameters to ostream... \n"
                     << "  "
                     << "[r = " << ring_object.m_inner_radius << "] "
                     << "[R = " << ring_object.m_outer_radius << "] "
@@ -109,7 +109,7 @@ public:
     }
 
     //сложение колец через метод класса
-    Ring operator+(Ring &ring_object_right)
+    Ring operator+(Ring &ring_object_right) const
     {
         //сумма центров колец как сумма векторов
         int new_inn_rad = this->m_inner_radius + ring_object_right.m_inner_radius;
@@ -123,13 +123,20 @@ public:
     }
 
     //увеличение кольца как метод класса
+    //(префикс)
     Ring operator++()
+    {
+        ++m_inner_radius;
+        ++m_outer_radius;
+        return Ring(m_inner_radius, m_outer_radius);
+    };
+    //(постфикс)
+    Ring operator++(int)
     {
         m_inner_radius++;
         m_outer_radius++;
         return Ring(m_inner_radius, m_outer_radius);
     };
-
     //вычитание колец через дружественную функцию
     friend Ring operator-(Ring &ring_object_left, Ring &ring_object_right)
     {
@@ -144,15 +151,66 @@ public:
     }
 
     //уменьшение кольца как дружественная функция
+    //(префикс)
     friend Ring operator--(Ring &ring_object)
     {
-        ring_object.m_inner_radius--;
-        ring_object.m_outer_radius--;
+        --ring_object.m_inner_radius;
+        --ring_object.m_outer_radius;
         return Ring(ring_object.m_inner_radius, ring_object.m_outer_radius);
+    }
+
+    //сравнение колец (>) : по площади
+    bool operator>(Ring &ring_object_right) const
+    {
+        cout << "\n  Left Ring area is " << this->getArea();
+        cout << "\n  Right Ring area is " << ring_object_right.getArea();
+
+        if (this->getArea() > ring_object_right.getArea())
+            return true;
+        else
+            return false;
+    }
+
+    //сравнение колец (<) : по площади
+    bool operator<(Ring &ring_object_right) const
+    {
+        //cout << "\n  Left Ring area is " << this->getArea();
+        //cout << "\n  Right Ring area is " << ring_object_right.getArea();
+
+        if (this->getArea() < ring_object_right.getArea())
+            return true;
+        else
+            return false;
+    }
+
+    //сравнение колец (==) : по идентичности значений полей
+    bool operator==(Ring &ring_object_right) const
+    {
+        bool check_inner_rad = (this->m_inner_radius == ring_object_right.m_inner_radius);
+        bool check_outer_rad = (this->m_outer_radius == ring_object_right.m_outer_radius);
+        bool check_Ox = (this->m_center_x == ring_object_right.m_center_x);
+        bool check_Oy = (this->m_center_y == ring_object_right.m_center_y);
+        if (check_inner_rad && check_outer_rad && check_Ox && check_Oy)
+            return true;
+        else
+            return false;
+    }
+
+    //Присваивание колец
+    Ring operator=(const Ring &ring_object_right)
+    {
+        //"this->" избыточен (т.к. неявно подразумевается), но более нагляден
+        this->m_inner_radius = ring_object_right.m_inner_radius;
+        this->m_outer_radius = ring_object_right.m_outer_radius;
+        this->m_center_x = ring_object_right.m_center_x;
+        this->m_center_y = ring_object_right.m_center_y;
+        return Ring(m_inner_radius, m_outer_radius, m_center_x, m_center_y);
     }
 
     //################################################
 };
+
+//определение конструкторов
 //===//===//===//===//===//===//===//===//===//===
 Ring::Ring() : m_center_x(3),
                m_center_y(3),
@@ -197,40 +255,86 @@ Ring::Ring(unsigned int inn_rad,
 }
 //===//===//===//===//===//===//===//===//===//===
 
+//основной поток
 int main()
 {
-    system("cls");
-    cout << "\n ====== Testing constructors ====== ";
+    //system("cls");
+    show_constructor_events = false;
+    cout << "\n  Constructor event logging disabled.";
+
+    cout << "\n ========= Testing constructors ========= ";
     Ring ring0, ring1, ring2(10, 20), ring3(11, 22, 33, 44);
 
+
+/*   
     cout << endl;
     system("pause");
 
     cout << "\n ====== Testing ++ and -- operators overload ====== ";
-    show_constructor_events = false;
 
-    cout << "\nEnter new ring parameters: ";
+    cout << "\n  Enter new ring parameters: ";
     cin >> ring0;
+    cout << "\n  Increasing the ring...";
     ++ring0;
+    cout << "\n  Increasing the ring...";
     ++ring0;
     cout << ring0;
+    cout << "\n  Decreasing the ring...";
     --ring0;
     cout << ring0;
 
-    show_constructor_events = true;
+    //show_constructor_events = true;
+    //cout << "\n  Constructor event logging enabled.";
     cout << endl;
     system("pause");
 
-    cout << "======= Testing (ring 1 + ring 2): ===========";
-    cout << ring1;
-    cout << ring2;
+    cout << "\n ======= Testing (ring 1 + ring 2): ===========";
+    cout << ring1 << ring2;
+
+    cout << "\n  Summing rings...";
     cout << (ring1 + ring2);
 
     cout << endl;
     system("pause");
 
-    cout << "======== Testing (ring 3 - ring 2) :===========";
+    cout << "\n ======== Testing (ring 3 - ring 2) :===========";
     cout << ring3;
     cout << ring2;
-    cout << (ring3 - ring2);
+    cout << "\n  Substracting rings...";
+    cout << (ring3 - ring2); 
+    cout << endl;
+    system("pause");
+
+
+    cout << "\n ======== Testing > and < operators overload :===========";
+    cout << ring0 << ring2;
+
+    cout << "\n  Comparing Rings... (>)";
+    ring0 > ring2 ? cout << "\n  [TRUE] ring0 > ring2" : cout << "\n  [FALSE] ring0 < ring2";
+    cout << "\n  Comparing Rings...(<)";
+    ring0 < ring2 ? cout << "\n  [TRUE] ring0 < ring2" : cout << "\n  [FALSE] ring0 > ring2";
+
+    cout << endl;
+    system("pause");
+ 
+
+
+    cout << "\n ======== Testing \"==\" operator overload :===========";
+    cout << ring0 << ring1 << ring2;
+
+    cout << "\n  Checking if rings are identical (ring0 == ring1)...";
+    ring0 == ring1 ? cout << "\n  [TRUE] ring0 == ring1" : cout << "\n  [FALSE] ring0 =/= ring1";
+
+    cout << "\n  Checking if rings are identical (ring0 == ring2)...";
+    ring0 == ring2 ? cout << "\n  [TRUE] ring0 == ring2" : cout << "\n  [FALSE] ring0 =/= ring2";
+
+    cout << endl;
+    system("pause");
+
+*/
+    cout << "\n ======== Testing \"=\" operator overload :===========";
+    cout << ring0 << ring1 << ring2;
+    cout << "\n  Copying rings...";
+    ring0 = ring1 = ring2;
+    cout << ring0 << ring1 << ring2;
 }
