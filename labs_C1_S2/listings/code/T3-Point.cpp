@@ -17,6 +17,7 @@
 #include <iostream> //cin/cout и стримы
 #include <iomanip>  //reserved
 #include <cstdlib>  //для rand()
+#include <math.h>   //для rand()
 using namespace std;
 
 //system("pause") с новой строки
@@ -27,6 +28,7 @@ void sys_pause()
 }
 
 ////////////////////////////////////////////////////////
+
 //вывод сообщений о создании объектов
 bool show_constructor_events = true;
 //вывод значений полей при создании объектов
@@ -59,6 +61,8 @@ public:
             cout << " [Point(arg1, arg2) have been constructed]";
         }
     }
+
+    //деструктор
     ~Point()
     {
         if (show_constructor_events)
@@ -66,16 +70,39 @@ public:
             cout << this;
             cout << " [~Point() have been destroyed ]";
         }
-    };
+    }
+
+    //расчет радиус-вектора точки по координатам
+    float getVector()
+    {
+        int x_side_squared = pow(m_Ox, 2);
+        int y_side_squared = pow(m_Oy, 2);
+        int vector_squared = x_side_squared + y_side_squared;
+        float raw_result = sqrt(vector_squared);
+
+        //два знака после запятой
+        float rounded_result = (round(raw_result * 100)) / 100; 
+        return rounded_result;
+    }
 
     //вывод параметров точки в консоль (динамические объекты)
-    friend std::ostream &operator<<(std::ostream &cout_stream, const Point *ptr_point)
+    friend std::ostream &operator<<(std::ostream &cout_stream, Point *ptr_point)
     {
+        //здесь - с более эргономичным форматом таблицы
         cout_stream << "  \n  >> "
-                    << "[T = DYN] "
-                    << "[X = " << ptr_point->m_Ox << "] "
-                    << "[Y = " << ptr_point->m_Oy << "] "
-                    << "[HX: " << printf("0x%08x", ptr_point) << "]";
+                    << "[T = DYN] " //динамический
+                    << "[X = "  << right << setw(3) << ptr_point->m_Ox << "] "
+                    << "[Y = "  << right << setw(3) << ptr_point->m_Oy << "] "
+                    << "[HX = " << right << printf("0x%08x", ptr_point) << "]" //0х-адрес
+            << " [VCTR = " //длина радиус-вектора
+            << right  //классическое форматиирование результатов
+            << setfill(' ') 
+            << setw(6) 
+            << setprecision(2) 
+            << fixed
+            << ptr_point->getVector()
+            << "]";
+
         return cout_stream;
     }
 
@@ -88,15 +115,26 @@ public:
 };
 ////////////////////////////////////////////////////////
 
+//вектор
+class Trajectory
+{
+private:
+public:
+};
+
+////////////////////////////////////////////////////////
+
 int main()
 {
     //массив укаpателей на объекты-точки;
     const int ARR_SIZE = 5;
     Point *arr_point_ptr[ARR_SIZE];
 
-    //случайные значения координат и интервал разброса
+    //случайные значения координат
+    srand(time(0)); //seed
     int random_x;
     int random_y;
+    //интервал разброса случайных значений координат
     const int RAND_INTERVAL = 10;
 
     //получаем память и заполняем координаты случайным значениями
@@ -109,22 +147,19 @@ int main()
     }
     cout << "\n Total number of points is " << ARR_SIZE << ".";
 
-    //можно изменить коордиаты точек (все разом)
-    bool confirm_edit_coordinates = 0;
-    cout << "\n Edit points coordinates? (1 = yes / 0 = no): ";
-    cin >> confirm_edit_coordinates;
-
+    //можно изменить координаты точек (все разом)
+    bool confirm_edit_coordinates = false;
+    //cout << "\n Edit points coordinates? (1 = yes / 0 = no): ";
+    //cin >> confirm_edit_coordinates;
     if (confirm_edit_coordinates)
     {
         cout << "\n Edit constructed points coordinates (as pairs of numbers): ";
         for (int j = 0; j < ARR_SIZE; j++)
             cin >> arr_point_ptr[j];
+
+        //результат ввода
+        cout << "\nPrinting points...";
+        for (int k = 0; k < ARR_SIZE; k++)
+            cout << arr_point_ptr[k];
     }
-
-    //результат ввода
-    cout << "Printing points...";
-    for (int k = 0; k < ARR_SIZE; k++)
-        cout << arr_point_ptr[k];
-
-    
 }
