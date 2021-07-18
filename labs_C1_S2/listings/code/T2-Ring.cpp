@@ -14,9 +14,9 @@
     8.Проверьте работу всех операций на статических идинамических объектах 
 */
 
-#include <math.h>
-#include <iostream>
-#include <iomanip>
+#include <math.h>   //pow()
+#include <iostream> //cin/cout и стримы
+#include <iomanip>  //reserved
 using namespace std;
 
 ////////////////////////////////////////////////////////
@@ -25,6 +25,13 @@ using namespace std;
 bool show_constructor_events = true;
 //вывод значений полей при создании объектов
 bool show_constructed_object_description = true;
+
+//system("pause") с новой строки
+void sys_pause()
+{
+    cout << endl;
+    system("pause");
+}
 
 class Ring
 {
@@ -39,33 +46,97 @@ private:
 
 public:
     //конструктор по умолчанию
-    Ring();
+    Ring() :   m_center_x(3),
+               m_center_y(3),
+               m_inner_radius(6),
+               m_outer_radius(9)
+    {
+
+        if (show_constructor_events)
+        {
+            cout << "\nRing(...): Default Ring have been created";
+            showHex();
+            if (show_constructed_object_description)
+                showDescription();
+        }
+    }
 
     //конструктор с центром в начале координат
-    Ring(int inn_rad, int out_rad);
+    Ring(int inn_rad,
+         int out_rad) : m_inner_radius(inn_rad),
+                        m_outer_radius(out_rad),
+                        m_center_x(0),
+                        m_center_y(0)
+    {
+        if ((inn_rad > 0) && (out_rad > 0) && (inn_rad < out_rad))
+        {
+            if (show_constructor_events)
+            {
+                cout << "\nRing(...):Centered Ring have been created";
+                showHex();
+                if (show_constructed_object_description)
+                    showDescription();
+            }
+        }
+        else
+        {
+            cout << "\n  Ring(...): Error at Ring constructor (Inner radius can`t be less or equal to outer radius).";
+            cout << "\n  Ring(...): Constructing with Default parameters instead.";
+            *this = Ring();
+        }
+    }
 
     //конструктор произвольного кольца
     Ring(int inn_rad,
-         int out_rad,
-         int x_coord,
-         int y_coord);
+        int out_rad,
+        int x_coord,
+        int y_coord)  : m_inner_radius(inn_rad),
+                        m_outer_radius(out_rad),
+                        m_center_x(x_coord),
+                        m_center_y(y_coord)
+    {
+        if ( (inn_rad > 0) && (out_rad > 0) && (inn_rad < out_rad))
+        {
+            if (show_constructor_events)
+            {
+                cout << "\nRing(...):  Custom Ring have been created";
+                showHex();
+                if (show_constructed_object_description)
+                    showDescription();
+            }
+        }
+        else
+        {
+            cout << "\n  Ring(...): Error at Ring constructor (Inner radius can`t be less or equal to outer radius).";
+            cout << "\n  Ring(...): Constructing with Default parameters instead.";
+            *this = Ring();
+        }
+    }
 
     //деструктор
     ~Ring()
     {
         if (show_constructor_events)
-            cout << "\n  A ring have been destroyed";
+        {
+            cout << "\n~Ring(...): A ring have been destroyed";
+            showHex();
+        }
     };
 
     //методы
-    //################################################
+
+    //вывод адреса this-объекта
+    void showHex() const
+    {
+        cout << "    [hex: " << printf("%08x", this) << "]";
+    }
 
     //отобразить параметры
     void showDescription() const
     {
         cout << "\n  It`s radiuses are "
-             << m_inner_radius << " and " << m_outer_radius << "\n";
-        cout << "  Its coordinates are "
+             << m_inner_radius << " and " << m_outer_radius << "."
+             << "  Its coordinates are "
              << "( "
              << m_center_x << " , " << m_center_y
              << " )";
@@ -94,28 +165,24 @@ public:
     //вывод параметров кольца в консоль (статические объекты)
     friend std::ostream &operator<<(std::ostream &cout_stream, const Ring &ring_object)
     {
-        cout_stream << "  \n  ->Sending parameters to ostream... \n"
-                    << "[T = "
-                    << "static "
-                    << "] "
+        cout_stream << "  \n  >> " << "[T = " << "static " << "] "
                     << "[r = " << ring_object.m_inner_radius << "] "
                     << "[R = " << ring_object.m_outer_radius << "] "
                     << "[X = " << ring_object.m_center_x << "] "
-                    << "[Y = " << ring_object.m_center_y << "] ";
+                    << "[Y = " << ring_object.m_center_y << "] "
+                    << "[hex: " << printf("%08x", &ring_object) << "]";
         return cout_stream;
     }
 
     //вывод параметров кольца в консоль (динамические объекты)
     friend std::ostream &operator<<(std::ostream &cout_stream, const Ring *ptr_ring_object)
     {
-        cout_stream << "  \n  ->Sending parameters to ostream... \n"
-                    << "[T = "
-                    << "dynamic"
-                    << "] "
+        cout_stream << "  \n  >> " << "[T = " << "dynamic" << "] "
                     << "[r = " << ptr_ring_object->m_inner_radius << "] "
                     << "[R = " << ptr_ring_object->m_outer_radius << "] "
                     << "[X = " << ptr_ring_object->m_center_x << "] "
-                    << "[Y = " << ptr_ring_object->m_center_y << "] ";
+                    << "[Y = " << ptr_ring_object->m_center_y << "] "
+                    << "[hex: " << printf("%08x", ptr_ring_object) << "]";
         return cout_stream;
     }
 
@@ -164,6 +231,7 @@ public:
         m_outer_radius++;
         return *this;
     };
+
     //вычитание колец через дружественную функцию
     friend Ring operator-(Ring &ring_object_left, Ring &ring_object_right)
     {
@@ -181,9 +249,11 @@ public:
                     Ring new_ring(new_inn_rad, new_out_rad, new_temp_x, new_temp_y);
                     return new_ring;
                 } else cout << "\n  Error at operator-!: subsraction impossible";
+                return ring_object_left;
             }
         } else cout << "\n  Error at operator-!: subsraction impossible";
-    }
+          return ring_object_left;
+    } 
 
     //уменьшение кольца как дружественная функция (префикс)
     friend Ring operator--(Ring &ring_object)
@@ -196,6 +266,7 @@ public:
         }
         else
             cout << "\n  Error at operator--!: impossible (Ring radius can`t be less than 1)";
+            return ring_object;
     }
 
     //сравнение колец (>) : по площади
@@ -237,82 +308,14 @@ public:
         this->m_center_y = ring_object_right.m_center_y;
         return Ring(m_inner_radius, m_outer_radius, m_center_x, m_center_y);
     }
-
-    //################################################
 };
-
-//определение конструкторов
-//===//===//===//===//===//===//===//===//===//===
-
-Ring::Ring() : m_center_x(3),
-               m_center_y(3),
-               m_inner_radius(6),
-               m_outer_radius(9)
-{
-
-    if (show_constructor_events)
-    {
-        cout << "\nDefault Ring have been created";
-        if (show_constructed_object_description)
-            showDescription();
-    }
-}
-
-Ring::Ring(int inn_rad,
-           int out_rad) : m_inner_radius(inn_rad),
-                                   m_outer_radius(out_rad),
-                                   m_center_x(0),
-                                   m_center_y(0)
-{
-    if ( (inn_rad > 0) && (out_rad > 0) && (inn_rad < out_rad))
-    {
-        if (show_constructor_events)
-        {
-            cout << "\nCentered Ring have been created";
-            if (show_constructed_object_description)
-                showDescription();
-        }
-    }
-    else
-    {
-        cout << "\n  Error at Ring constructor (Inner radius can`t be less or equal to outer radius).";
-        cout << "\n  Constructing with Default parameters instead.";
-        *this = Ring();
-    }
-}
-
-Ring::Ring(int inn_rad,
-           int out_rad,
-           int x_coord,
-           int y_coord) : m_inner_radius(inn_rad),
-                          m_outer_radius(out_rad),
-                          m_center_x(x_coord),
-                          m_center_y(y_coord)
-{
-    if ( (inn_rad > 0) && (out_rad > 0) && (inn_rad < out_rad))
-    {
-        if (show_constructor_events)
-        {
-            cout << "\nCustom Ring have been created";
-            if (show_constructed_object_description)
-                showDescription();
-        }
-    }
-    else
-    {
-        cout << "\n  Error at Ring constructor (Inner radius can`t be less or equal to outer radius).";
-        cout << "\n  Constructing with Default parameters instead.";
-        *this = Ring();
-    }
-}
-//===//===//===//===//===//===//===//===//===//===
 
 //основной поток
 int main()
 {
-    system("cls");
+    //system("cls");
     show_constructor_events = true;
-    show_constructed_object_description = true;
+    show_constructed_object_description = false;
 
     show_constructor_events ?
         cout << "\n  Constructor/Destructor event logging enabled." :
@@ -322,13 +325,11 @@ int main()
         cout << "\n  Constructed object description enabled." :
         cout << "\n  Constructed object description disabled.";
 
+
     cout << "\n ==== Testing constructors (static objects) ==== ";
-    Ring ring0, ring1, ring2(10, 20), ring3(11, 22, 33, 44);
-
-    cout << endl;
-    system("pause");
-
-
+        Ring ring0, ring1, ring2(10, 20), ring3(11, 22, 33, 44);
+        cout << ring0 << ring1 << ring2 << ring3;
+    sys_pause();
 
     cout << "\n ====== Testing ++ and -- operators overload ====== ";
         cout << "\n  Enter new ring parameters: ";
@@ -344,9 +345,7 @@ int main()
         cout << "\n  Decreasing the ring...";
         --ring0;
         cout << ring0;
-
-        cout << endl;
-        system("pause");
+    sys_pause();
 
 
 
@@ -355,9 +354,7 @@ int main()
 
         cout << "\n  Summing rings...";
         cout << (ring1 + ring2);
-
-        cout << endl;
-        system("pause");
+    sys_pause();
 
 
 
@@ -366,9 +363,7 @@ int main()
         cout << ring2;
         cout << "\n  Substracting rings...";
         cout << (ring3 - ring2); 
-
-        cout << endl;
-        system("pause");
+    sys_pause();
 
 
 
@@ -377,33 +372,29 @@ int main()
 
         cout << "\n  Comparing Rings... (>)";
         ring0 > ring2 ? 
-            cout << "\n  [TRUE] ring0 > ring2"  : 
-            cout << "\n  [FALSE] ring0 < ring2";
+            cout << "\n  [ > :  TRUE] ring0 > ring2"  : 
+            cout << "\n  [ > : FALSE] ring0 < ring2";
 
         cout << "\n  Comparing Rings...(<)";
         ring0 < ring2 ? 
-            cout << "\n  [TRUE] ring0 < ring2"  : 
-            cout << "\n  [FALSE] ring0 > ring2";
+            cout << "\n  [ < :  TRUE] ring0 < ring2"  : 
+            cout << "\n  [ < : FALSE] ring0 > ring2";
+    sys_pause();
 
-    cout << endl;
-    system("pause");
- 
 
     cout << "\n ======== Testing \"==\" operator overload :===========";
         cout << ring0 << ring1 << ring2;
 
         cout << "\n  Checking if rings are identical (ring0 == ring1)...";
         ring0 == ring1 ? 
-            cout << "\n  [TRUE] ring0 == ring1" : 
-            cout << "\n  [FALSE] ring0 =/= ring1";
+            cout << "\n  [ == :  TRUE] ring0 == ring1" : 
+            cout << "\n  [ == : FALSE] ring0 =/= ring1";
 
         cout << "\n  Checking if rings are identical (ring0 == ring2)...";
         ring0 == ring2 ? 
-            cout << "\n  [TRUE] ring0 == ring2" : 
-            cout << "\n  [FALSE] ring0 =/= ring2";
-
-    cout << endl;
-    system("pause");
+            cout << "\n  [ == :  TRUE] ring0 == ring2" : 
+            cout << "\n  [ == : FALSE] ring0 =/= ring2";
+    sys_pause();
 
     cout << "\n ======== Testing \"=\" operator overload :===========";
         cout << ring0 << ring1 << ring2;
@@ -418,9 +409,7 @@ int main()
         ptr_ring1 = new Ring(70, 80);
         ptr_ring2 = new Ring(71, 81, 9, 11);
         ptr_ring3 = new Ring();
-
-    cout << endl;
-    system("pause");
+    sys_pause();
 
     cout << "\n == Testing ++ and -- operators overload (dynamic objects) == ";
         cout << "\n  Enter new ring parameters: ";
@@ -434,18 +423,15 @@ int main()
         cout << "\n  Decreasing the ptr_ring...";
         --(*ptr_ring0);
         cout << ptr_ring0;
+    sys_pause();
 
-    cout << endl;
-    system("pause");
 
     cout << "\n === Testing (ptr_ring 1 + ptr_ring 2) (dynamic objects) ===";
         cout << ptr_ring1 << ptr_ring2;
 
         cout << "\n  Summing ptr_rings...";
         cout << (*ptr_ring1 + *ptr_ring2);
-
-    cout << endl;
-    system("pause");
+    sys_pause();
 
 
 
@@ -454,8 +440,7 @@ int main()
         cout << ptr_ring2;
         cout << "\n  Substracting ptr_rings...";
         cout << (*ptr_ring2 - *ptr_ring3);
-        cout << endl;
-    system("pause");
+    sys_pause();
 
 
 
@@ -464,16 +449,14 @@ int main()
 
         cout << "\n  ptr_Comparing ptr_Rings... (>)";
         (*ptr_ring0 > *ptr_ring2) ? 
-            cout << "\n  [TRUE]  ptr_ring0 > ptr_ring2" : 
-            cout << "\n  [FALSE] ptr_ring0 < ptr_ring2";
+            cout << "\n  [ > :  TRUE]  ptr_ring0 > ptr_ring2" : 
+            cout << "\n  [ > : FALSE] ptr_ring0 < ptr_ring2";
 
         cout << "\n  ptr_Comparing ptr_Rings...(<)";
         (*ptr_ring0 < *ptr_ring2) ? 
-            cout << "\n  [TRUE] ptr_ring0 < ptr_ring2" : 
-            cout << "\n  [FALSE] ptr_ring0 > ptr_ring2";
-
-    cout << endl;
-    system("pause");
+            cout << "\n  [ < :  TRUE] ptr_ring0 < ptr_ring2" : 
+            cout << "\n  [ < : FALSE] ptr_ring0 > ptr_ring2";
+    sys_pause();
 
 
 
@@ -482,16 +465,14 @@ int main()
 
         cout << "\n  Checking if (ptr_ring1 == ptr_ring1)...";
         *ptr_ring0 == *ptr_ring1 ?
-            cout << "\n  [TRUE] ptr_ring0 == ptr_ring1" :
-            cout << "\n  [FALSE] ptr_ring0 =/= ptr_ring1";
+            cout << "\n  [ == :  TRUE] ptr_ring0 == ptr_ring1" :
+            cout << "\n  [ == : FALSE] ptr_ring0 =/= ptr_ring1";
 
         cout << "\n  Checking if (ptr_ring0 == ptr_ring2)...";
         *ptr_ring0 == *ptr_ring2 ?
-            cout << "\n  [TRUE] ptr_ring0 == ptr_ring2" :
-            cout << "\n  [FALSE] ptr_ring0 =/= ptr_ring2";
-
-    cout << endl;
-    system("pause");
+            cout << "\n  [ == :  TRUE] ptr_ring0 == ptr_ring2" :
+            cout << "\n  [ == : FALSE] ptr_ring0 =/= ptr_ring2";
+    sys_pause();
 
 
 
@@ -500,16 +481,12 @@ int main()
         cout << "\n  Copying ptr_rings...";
         *ptr_ring0 = *ptr_ring1 = *ptr_ring2;
         cout << ptr_ring0 << ptr_ring1 << ptr_ring2;
-
-    cout << endl;
-    system("pause");
+    sys_pause();
 
 
 
     cout << "\n === Testing error detection ===";
-        Ring r1(1,-10,3,4);
-        Ring r1(2,1,5,6);
-        
-    cout << endl;
-    system("pause");
+        Ring r1test(1,-10,3,4);
+        Ring r2test(2,1,5,6);
+    sys_pause();
 }
