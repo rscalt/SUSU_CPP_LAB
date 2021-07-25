@@ -1,5 +1,6 @@
 /* 
 Практическое задание No3: прямое наследование.
+
 Задание 1.
 1.Опишите класс «Точка» на координатной плоскости.
     Данные класса: 
@@ -12,7 +13,19 @@
         определение радиуса вектора точки.
 3.Объявите объекты с использованием различных конструкторов, 
         найдите их радиусы векторы.
- */
+
+Задание 2.
+1. Опишите класс «Траектория», производный от точки, 
+    описывающий некоторую траекторию движения точки по прямой линии: Y=k*x+b.
+2. Определите конструктор траектории по умолчанию и с параметрами.
+3. Опишите метод, который позволит вывести на экран 
+    таблицу значений координат точек, расположенных на траектории. 
+    Количество выводимых точек должно быть его параметром.
+4. Объявите некоторую траекторию, 
+    выведите на экран таблицу значений координат ее точек.
+5. Определите операцию сравнения траекторий. 
+*/
+
 
 #include <iostream> //cin/cout и стримы
 #include <iomanip>  //reserved
@@ -30,9 +43,9 @@ void sys_pause()
 ////////////////////////////////////////////////////////
 
 //вывод сообщений о создании объектов
-bool show_constructor_events = true;
+bool show_constructor_events = false;
 //вывод значений полей при создании объектов
-bool show_constructed_object_description = true;
+bool show_constructed_object_description = false;
 
 //точка
 class Point
@@ -92,23 +105,38 @@ public:
              << "[Y = " << right << setw(3) << m_Oy << "] ";
     }
 
+    float fetch_coordinates(char type)
+    {
+        if (type == 'x')
+        {
+            //cout << endl
+            //<< "returning X...";
+            return m_Ox;
+        }
+        else if (type == 'y')
+        {
+            //cout << endl
+            //<< "returning Y...";
+            return m_Oy;
+        }
+        else
+        {
+            cout << endl
+                 << "Error at fetch_coordinates(): Wrong argument (char type is either 'x' or 'y').";
+            return INT32_MAX;
+        }
+    }
+
     //вывод параметров точки в консоль (динамические объекты)
     friend std::ostream &operator<<(std::ostream &cout_stream, Point *ptr_point)
     {
         //здесь - с более эргономичным форматом таблицы
         cout_stream << "  \n  >> "
                     << "[T = DYN] " //динамический
-                    << "[X = " << right << setw(3) << ptr_point->m_Ox << "] "
-                    << "[Y = " << right << setw(3) << ptr_point->m_Oy << "] "
-                    << "[HX = " << right << printf("0x%08x", ptr_point) << "]" //0х-адрес
-                    << " [VCTR = "                                             //длина радиус-вектора
-                    << right                                                   //классическое форматиирование результатов
-                    << setfill(' ')
-                    << setw(6)
-                    << setprecision(2)
-                    << fixed
-                    << ptr_point->getVector() //длина радиус-вектора
-                    << "]";
+                    << "[X = " << right << setw(6) << ptr_point->m_Ox << "] "
+                    << "[Y = " << right << setw(6) << ptr_point->m_Oy << "] "
+                    << "[HX = " << right << printf("0x%08x", ptr_point) << "] "          //0х-адрес
+                    << "[VCTR = " << right << setw(6) << ptr_point->getVector() << "] "; //длина радиус-вектора
 
         return cout_stream;
     }
@@ -122,140 +150,260 @@ public:
 };
 ////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////
 //вектор
 class Trajectory : public Point
 {
 private:
-    Point p1;
-    Point p2;
-    float k; //угловой коэфициент
-    float b; //смещение
-    //конструктор по умолчанию: первая точка и стандартные параметры
+    float m_k; //угловой коэфициент
+    float m_b; //смещение
 public:
-    //вывод параметров точки в консоль (динамические объекты)
-    /*     friend std::ostream &operator<<(std::ostream &cout_stream, Point &point)
+    //=======================================================
+    //конструктор по умолчанию: от данной точки через начало координат
+    Trajectory(Point *ptr_point)
     {
-        //здесь - с более эргономичным форматом таблицы
-        cout_stream << "  \n  >> "
-                    << "[T = DYN] " //динамический
-                    << "[X = " << right << setw(3) << point.m_Ox << "] "
-                    << "[Y = " << right << setw(3) << point.m_Oy << "] "
-                    << "[HX = " << right << printf("0x%08x", point) << "]"; //0х-адрес
-        return cout_stream;
-    } */
+        //первая точка - начало координат
+        m_Ox = m_Oy = 0;
 
-    Trajectory() : Point(0, 0), k(1), b(0)
-    {
-        //вторую точку, таким образом, можем определить однозначно (точно и единожды)
+        //вторая точка - произвольная
         float x2, y2;
-        x2 = 0 + 1;      //берем абсиссу на 1 правее исходной
-        y2 = k * x2 + b; //... и получаем ординату второй точки
-        //таким образом:
-        p2 = Point(x2, y2);
+        x2 = ptr_point->fetch_coordinates('x');
+        y2 = ptr_point->fetch_coordinates('y');
 
-        cout << endl;
-        cout << endl
-             << "Default trajectory have beed created: ";
-        cout << endl
-             << "TR: "
-             << "y"
-             << " = " << k << "*"
-             << "x"
-             << " + " << b;
-        cout << endl;
-        p1.showPoint();
-        p2.showPoint();
+        //две точки позволяют однозначно определить коэффициент и смещение
+        m_k = (y2 - m_Oy) / (x2 - m_Ox);
+        m_b = ((x2 * m_Oy) - (y2 * m_Ox)) / (x2 - m_Ox);
+
+        //вывод сообщений
+        if (show_constructed_object_description)
+            showDescription();
+        if (show_constructor_events)
+            cout << "[Default Trajectory(Point *ptr_point) have been constructed] ";
     }
 
-    //создаем траекторию по коэффициентам
+    //произвольный конструктор через коэффициент и смещение
     Trajectory(float arg_k, float arg_b)
     {
-        k = arg_k;
-        b = arg_b;
+        m_k = arg_k;
+        m_b = arg_b;
 
-        int p1x, p1y;
-        p1x = 0 + 1;       //берем абсиссу на 1 правее исходной
-        p1y = k * p1x + b; //... и получаем ординату второй точки
-        p1 = Point(p1x, p1y);
+        //коэффициент и смещение позволяют однозначно определить точку
+        m_Ox = 0;   //траектория определена на всей оси абсцисс
+        m_Oy = m_b; //т.к. kx = 0
 
-        //вторую точку, таким образом, можем определить однозначно (точно и единожды)
-        int p2x, p2y;
-        p2x = p1x + 1;     //берем абсиссу на 1 правее исходной
-        p2y = k * p2x + b; //... и получаем ординату второй точки
-        //таким образом:
-        p2 = Point(p2x, p2y);
-
-        cout << endl;
-        cout << endl
-             << "Custom trajectory have beed created: ";
-        cout << endl
-             << "TR: "
-             << "y"
-             << " = " << k << "*"
-             << "x"
-             << " + " << b;
-        cout << endl;
-        p1.showPoint();
-        p2.showPoint();
+        //вывод сообщений
+        if (show_constructed_object_description)
+            showDescription();
+        if (show_constructor_events)
+            cout << "[Custom Trajectory(float arg_k, float arg_b) have been constructed] ";
     }
 
-    //создаем траекторию по координатам двух точек
-    Trajectory(float x1, float y1, float x2, float y2)
+    //вывод значений полей при создани объектов (функция)
+    void showDescription()
     {
-        p1 = Point(x1, y1);
-        p2 = Point (x2, y2);
-        k = (y2 - y1) / (x2 - x1);
-        b = ((x2 * y1) - (y2 * x1)) / (x2 - x1);
+        cout << endl
+             << "[TR: "
+             << "y"
+             << " = " << m_k << "*"
+             << "x"
+             << " + " << m_b << "] ";
+        //поля соовтетствующей точки
+        showPoint();
+    }
+
+    //сравнение траекторий (по коэффициенту и смещению)
+    bool operator==(Trajectory& arg_trajectory_obj)
+    {
+        bool isEqual, check_k, check_b;
+        check_k = this->m_k==arg_trajectory_obj.m_k;
+        check_b = this->m_b==arg_trajectory_obj.m_b;
+        isEqual = check_k && check_b;
+        return isEqual;
+    }
+    //=======================================================
+
+    //принадлежность точки прямой (траектории) (по указателю на точку)
+    bool checkPoint(Point *arg_point_obj)
+    {
+        float x_coordinate, y_coordinate;
+        x_coordinate = arg_point_obj->fetch_coordinates('x');
+        y_coordinate = arg_point_obj->fetch_coordinates('y');
+
+        //если соответствует уравнению прямой (траектории)
+        if (y_coordinate == m_k * x_coordinate + m_b)
+            return true;
+        else
+            return false;
+    }
+
+    //количество точек, принадлежащих прямой
+    //аргументы - массив указателей на точки и его размер
+    int get_aligned_points_count(Point *arg_arr_point_ptr[], int arg_ptr_array_size)
+    {
+        int point_count = 0;         //число точек, принадлежащих прямой
+        bool isOnTrajectory = false; //принадлежность прямой
+
+        for (int i = 0; i < arg_ptr_array_size; i++)
+        {
+            isOnTrajectory = checkPoint(arg_arr_point_ptr[i]);
+            if (isOnTrajectory)
+                point_count++;
+        }
+        return point_count;
+    }
+
+    //копирует указатели arg_arr_point_ptr в заданный массив того же типа
+    //аргументы - исходный, размер исходного, целевой, размер целевого
+    int copy_aligned_points_pointers(Point *arg_arr_point_ptr[], int arg_ptr_array_size,
+                                     Point *arg_arr_point_ptr_aligned[], int arg_ptr_array_aligned_size)
+    {
+        int point_count = arg_ptr_array_aligned_size; //число точек, принадлежащих прямой
+        bool isOnTrajectory = false;                  //принадлежность прямой
+
+        int j; //позиия копирования в массиве
+        for (int i = 0; i < arg_ptr_array_size; i++)
+        {
+            isOnTrajectory = checkPoint(arg_arr_point_ptr[i]);
+            if (isOnTrajectory)
+                arg_arr_point_ptr_aligned[j++] = arg_arr_point_ptr[i];
+        }
+        return 1;
+    }
+
+    //печать первых N точек, принадлежащих прямой (траектории)
+    //для вызова должен существовать ранее созданный массив принадлежащих точек
+    void print_aligned_points(int N, Point *arr_point_ptr_aligned[], int arr_point_ptr_aligned_size)
+    { //точки берутся из массива указателей на точки
+        //если такого количества точек нет - печатаем максимально возможное
+        if (arr_point_ptr_aligned_size > 0)
+        {
+            if (arr_point_ptr_aligned_size < N)
+            {
+                cout << endl
+                     << "ERROR at print_aligned_points(...): Maximum points count is: "
+                     << arr_point_ptr_aligned_size;
+                N = arr_point_ptr_aligned_size;
+            }
+            for (int i = 0; i < N; i++)
+            {
+                cout << arr_point_ptr_aligned[i];
+                cout << " [TRUE]";
+            }
+        }
+        else
+        {
+            cout << endl
+                 //в переданном массиве подходящих точек на найдено
+                 << "No aligned points found in source array."; 
+            return;
+        }
     }
 };
-
 ////////////////////////////////////////////////////////
 
 int main()
 {
     //первая часть - массив точек и расчет их радиус-векторов
+
+    //массив укаpателей на объекты-точки (в куче)
+    const int ARR_SIZE = 1024*768;
+    Point **arr_point_ptr = new Point*[ARR_SIZE];
+
+    //случайные значения координат
+    srand(time(0)); //seed
+    int random_x;
+    int random_y;
+    //интервал разброса случайных значений координат
+    const int RAND_INTERVAL = 25;
+
+    //получаем память и заполняем координаты случайным значениями
+    for (int i = 0; i < ARR_SIZE; i++)
     {
-        //массив укаpателей на объекты-точки;
-        const int ARR_SIZE = 5;
-        Point *arr_point_ptr[ARR_SIZE];
-
-        //случайные значения координат
-        srand(time(0)); //seed
-        int random_x;
-        int random_y;
-        //интервал разброса случайных значений координат
-        const int RAND_INTERVAL = 10;
-
-        //получаем память и заполняем координаты случайным значениями
-        for (int i = 0; i < ARR_SIZE; i++)
-        {
-            random_x = (rand() - rand()) % RAND_INTERVAL;
-            random_y = (rand() - rand()) % RAND_INTERVAL;
-
-            arr_point_ptr[i] = new Point(random_x, random_y);
-        }
-        cout << "\n Total number of points is " << ARR_SIZE << ".";
-
-        //можно изменить координаты точек (все разом)
-        bool confirm_edit_coordinates = false;
-        //cout << "\n Edit points coordinates? (1 = yes / 0 = no): ";
-        //cin >> confirm_edit_coordinates;
-        if (confirm_edit_coordinates)
-        {
-            cout << "\n Edit constructed points coordinates (as pairs of numbers): ";
-            for (int j = 0; j < ARR_SIZE; j++)
-                cin >> arr_point_ptr[j];
-
-            //результат ввода
-            cout << "\nPrinting points...";
-            for (int k = 0; k < ARR_SIZE; k++)
-                cout << arr_point_ptr[k];
-        }
+        random_x = (rand() - rand()) % RAND_INTERVAL;
+        random_y = (rand() - rand()) % RAND_INTERVAL;
+        arr_point_ptr[i] = new Point(random_x, random_y);
     }
+    cout << "\n Total number of points is " << ARR_SIZE << ".";
 
     //вторая часть - работа с траекториями
-    {
-        Trajectory t1_def;
-        sys_pause();
-    }
+    show_constructor_events = show_constructed_object_description = true;
+
+    //создаем траектории
+
+    //траектория по умолчанию (от первой точки в массиве, например)
+    cout << endl
+         << "Selected point for default constructor is on next line: " << arr_point_ptr[0];
+    Trajectory t1_default(arr_point_ptr[0]);
+
+    //размер массива указателей на точки, принадлежащие прямой
+    int aligned_point_arr_size_default = t1_default.get_aligned_points_count(arr_point_ptr, ARR_SIZE);
+    Point *arr_point_ptr_aligned_default[aligned_point_arr_size_default];
+
+    //копируем подходящие указатели в "контейнер"
+    t1_default.copy_aligned_points_pointers(arr_point_ptr,
+                                            ARR_SIZE,
+                                            arr_point_ptr_aligned_default,
+                                            aligned_point_arr_size_default);
+    
+    
+    //и выводим на экран (здесб - максимум три точки)
+    cout << endl;
+    cout << endl;
+    cout << "==========START_TEST_DEFAULT_TRAJECTORY============";
+
+        t1_default.print_aligned_points(5,
+                                        arr_point_ptr_aligned_default,
+                                        aligned_point_arr_size_default);
+
+    cout << endl;
+    cout << "==========END_TEST_DEFAULT_TRAJECTORY============";
+    cout << endl;
+
+
+    //траектория произвольная(через аргменты k, b)
+    Trajectory t2_custom(5, 4);
+    //размер массива указателей на точки, принадлежащие прямой
+    int aligned_point_arr_size_custom = t2_custom.get_aligned_points_count(arr_point_ptr, ARR_SIZE);
+    Point *arr_point_ptr_aligned_custom[aligned_point_arr_size_custom];
+
+    //копируем подходящие указатели в "контейнер"
+    t2_custom.copy_aligned_points_pointers(arr_point_ptr,
+                                           ARR_SIZE,
+                                           arr_point_ptr_aligned_custom,
+                                           aligned_point_arr_size_custom);
+    
+    
+    //и выводим на экран (здесб - максимум три точки)
+    cout << endl;
+    cout << endl;
+    cout << "==========START_TEST_CUSTOM_TRAJECTORY============";
+
+        t2_custom.print_aligned_points(5, arr_point_ptr_aligned_custom, aligned_point_arr_size_custom);
+
+    cout << endl;
+    cout << "==========END_TEST_CUSTOM_TRAJECTORY============";
+    cout << endl;
+
+
+    Trajectory t3_custom(5, 4), t4_custom(6, 7);
+    cout << endl;
+    cout << endl;
+    cout << "==========START_TEST_OPERATOR \"==\"============";
+
+        t2_custom.showDescription();
+        t3_custom.showDescription();
+        t4_custom.showDescription();
+
+        cout << endl;
+        cout << "t2_custom == t3_custom? : ";
+        cout << ((t2_custom == t3_custom) ? "[TRUE]" : "[FALSE]");
+        cout << endl;
+        cout << "t3_custom == t4_custom? : ";
+        cout << ((t3_custom == t4_custom) ? "[TRUE]" : "[FALSE]");
+
+    cout << endl;
+    cout << "==========END_TEST_OPERATOR \"==\"============";
+    cout << endl;
+
+    sys_pause();
 }
