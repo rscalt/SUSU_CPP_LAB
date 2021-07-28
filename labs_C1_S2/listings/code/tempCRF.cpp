@@ -1,1 +1,0 @@
-if (arr_point_ptr_aligned_size > 0)
