@@ -17,7 +17,6 @@
 //здесь - вещица - item, дамская сумочка = backpack
 
 #include <iostream>
-#include <iomanip>
 using namespace std;
 ////////////////////////////////////////////////////////////////////////
 class Item
@@ -26,7 +25,6 @@ protected:
     int cost;
     int weight;
     string description;
-
 public:
     virtual void print() = 0;
     virtual string get_description() = 0;
@@ -150,21 +148,21 @@ public:
     }
 };
 ////////////////////////////////////////////////////////////////////////
-class Shortbow : public Item
+class shortbow : public Item
 {
 private:
     int damage = 100;
 
 public:
-    Shortbow()
+    shortbow()
     {
         cost = 500;
         weight = 20;
         description = "Shortbow";
-        cout << "\nA Shortbow have been created.";
+        cout << "\nA shortbow have been created.";
     }
 
-    ~Shortbow()
+    ~shortbow()
     {
         cout << "\nA Shortbow have been destroyed.";
     }
@@ -209,19 +207,22 @@ public:
     //=========================================================================
 
     //добавление предмета
-    void add_item(Item *i1)
+    void add_item(Item *new_item)
     {
         //cout << "  \nLast index is " << last_index;
-        m_arr_ptr_item[last_index] = i1;
+        m_arr_ptr_item[last_index] = new_item;
         last_index++;
-        cout << "  \n Item have been added.";
+        cout << "  \n Item have been added." << " ["
+             << m_arr_ptr_item[last_index - 1]->get_description()
+             << "]";
     }
 
-    //удаление предмета
+    //удаление предмета по его номеру
     void remove_item(int item_number)
     {
         int index = item_number - 1;
 
+        string removed_item_name = m_arr_ptr_item[index]->get_description();
         //перемещаем предметы с учетом освободившегося места
         m_arr_ptr_item[index] = nullptr;
         for (int i = index; i < m_max_size - 1; i++)
@@ -229,7 +230,7 @@ public:
 
         //корректируем last_index
         last_index--;
-        cout << "  \nItem #" << item_number << " have been removed.";
+        cout << "  \nItem #" << item_number << " [" << removed_item_name << "]" << " have been removed.";
     }
 
     //ревизия содержимого
@@ -247,7 +248,8 @@ public:
     //поиск предмета по указанному свойству
     void search_item(string str_query)
     {
-        cout << endl << str_query << ": ";
+        cout << endl
+             << str_query << ": ";
         bool is_found = false;
         for (int i = 0; i < last_index; i++)
         {
@@ -279,7 +281,7 @@ public:
 int main()
 {
     Item *ptr_item1, *ptr_item2, *ptr_item3, *ptr_item4, *ptr_item5, *ptr_item6, *ptr_item7;
-    ptr_item1 = new Shortbow;
+    ptr_item1 = new shortbow;
     ptr_item2 = new Health_potion;
     ptr_item3 = new Mana_potion;
     ptr_item4 = new Iron_sword;
@@ -308,7 +310,6 @@ int main()
     backpack1.search_item("Mana potion");
     cout << endl;
     backpack1.search_item("Iron sword");
-
 
     cout << endl;
 
